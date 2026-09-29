@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avgust — Coffee &amp; Cake Bar, Lion, Beograd</title>
+<meta name="description" content="Avgust coffee &amp; cake bar — kafa, torte i domaći kolači na Lionu, Bulevar kralja Aleksandra 225, Beograd. Svakog dana 08–22h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#110b09;
+  --ink-2:#1a1210;
+  --ink-3:#261a16;
+  --cream:#f7ebdf;
+  --cream-dim:rgba(247,235,223,.62);
+  --line:rgba(247,235,223,.14);
+  --gold:#dca06d;
+  --gold-soft:#f1cfa6;
+  --ember:#c4566a;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Manrope",system-ui,sans-serif;
+  --ease:cubic-bezier(.77,0,.18,1);
+  --gutter:clamp(16px,4vw,64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);-webkit-font-smoothing:antialiased}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--ink);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden}
+body.loading{overflow:hidden}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--gold);color:var(--ink)}
+
+/* grain */
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:90;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-5%,3%)}40%{transform:translate(4%,-6%)}60%{transform:translate(-3%,5%)}80%{transform:translate(6%,2%)}100%{transform:translate(0,0)}}
+
+/* cursor */
+.cursor,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;z-index:100;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor{width:44px;height:44px;border:1px solid var(--gold);transition:width .45s var(--ease),height .45s var(--ease),background .45s,border-color .45s;display:grid;place-items:center}
+.cursor span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .3s}
+.cursor.hover{width:84px;height:84px;background:rgba(220,160,109,.12)}
+.cursor.view{width:110px;height:110px;background:var(--gold);border-color:var(--gold)}
+.cursor.view span{opacity:1}
+.cursor-dot{width:5px;height:5px;background:var(--gold)}
+@media (hover:none){.cursor,.cursor-dot{display:none}}
+
+/* preloader */
+.loader{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--ink)}
+.loader__panel{position:absolute;left:0;right:0;height:50%;background:var(--ink-2)}
+.loader__panel--t{top:0}.loader__panel--b{bottom:0}
+.loader__inner{position:relative;text-align:center;z-index:2}
+.loader__mark{width:110px;height:110px;margin:0 auto 28px}
+.loader__mark path,.loader__mark circle{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.loader__count{font-family:var(--serif);font-size:clamp(56px,9vw,120px);font-weight:300;line-height:1;font-variant-numeric:tabular-nums}
+.loader__label{margin-top:14px;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream-dim)}
+.loader__bar{position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);z-index:3}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px var(--gutter);transition:transform .6s var(--ease),background .5s,padding .5s}
+.nav.scrolled{background:rgba(17,11,9,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:14px var(--gutter);border-bottom:1px solid var(--line)}
+.nav.hide{transform:translateY(-110%)}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:24px;letter-spacing:.04em}
+.logo svg{width:34px;height:34px}
+.logo svg{fill:none;stroke:var(--gold);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.logo em{color:var(--gold);font-style:italic}
+.logo small{font-family:var(--sans);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);margin-left:4px}
+.nav__links{display:flex;gap:38px;list-style:none;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+.nav__links a{position:relative;display:inline-block;overflow:hidden;height:1.6em}
+.nav__links a span{display:block;transition:transform .5s var(--ease)}
+.nav__links a span:last-child{position:absolute;top:100%;left:0;color:var(--gold)}
+.nav__links a:hover span{transform:translateY(-100%)}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;padding:14px 26px;border:1px solid var(--gold);border-radius:100px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;overflow:hidden;isolation:isolate;transition:color .5s var(--ease)}
+.btn::before{content:"";position:absolute;inset:0;background:var(--gold);transform:translateY(101%);border-radius:inherit;transition:transform .55s var(--ease);z-index:-1}
+.btn:hover{color:var(--ink)}
+.btn:hover::before{transform:translateY(0)}
+.btn svg{width:14px;height:14px;transition:transform .5s var(--ease)}
+.btn:hover svg{transform:rotate(-45deg)}
+.burger{display:none;width:44px;height:44px;position:relative}
+.burger i{position:absolute;left:10px;right:10px;height:1px;background:var(--cream);transition:transform .5s var(--ease),top .5s var(--ease)}
+.burger i:nth-child(1){top:18px}.burger i:nth-child(2){top:26px}
+.menu-open .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+.menu-open .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:45;background:var(--ink-2);display:flex;flex-direction:column;justify-content:center;padding:0 var(--gutter);clip-path:circle(0% at calc(100% - 40px) 40px);transition:clip-path .9s var(--ease)}
+.menu-open .mobile-menu{clip-path:circle(150% at calc(100% - 40px) 40px)}
+.mobile-menu a{font-family:var(--serif);font-size:clamp(44px,12vw,72px);line-height:1.15;display:block}
+.mobile-menu a:hover{color:var(--gold);font-style:italic}
+.mobile-menu p{margin-top:40px;color:var(--cream-dim);font-size:13px;letter-spacing:.1em}
+
+/* hero */
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end}
+.hero__media{position:absolute;inset:0}
+.hero__media img{transform:scale(1.15);filter:brightness(.5) saturate(.85)}
+.hero__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,11,9,.55) 0%,rgba(17,11,9,.1) 40%,rgba(17,11,9,.95) 100%)}
+.hero__content{position:relative;z-index:2;width:100%;padding:0 var(--gutter) clamp(40px,7vh,80px)}
+.eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:40px;height:1px;background:currentColor}
+.hero__title{font-family:var(--serif);font-weight:300;font-size:clamp(64px,min(15.5vw,25vh),250px);line-height:.86;letter-spacing:-.02em;margin:24px 0 32px}
+.hero__title .row{display:block;overflow:hidden;padding-bottom:.04em}
+.hero__title .row:last-child{padding-left:12vw}
+.hero__title .row--sub{font-size:.34em;line-height:1.05;letter-spacing:.01em;margin-top:.12em}
+.hero__title em{font-style:italic;color:var(--gold)}
+.char{display:inline-block;will-change:transform}
+.hero-gl{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.4s var(--ease)}
+.hero-gl.ready{opacity:1}
+.hero__top{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.status{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border:1px solid var(--line);border-radius:100px;background:rgba(17,11,9,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.status i{width:7px;height:7px;border-radius:50%;background:#6fbf73;box-shadow:0 0 0 0 rgba(111,191,115,.6);animation:pulse 2s infinite}
+.hero__foot{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
+.hero__intro{display:grid;gap:26px;max-width:460px}
+.hero__lead{color:var(--cream-dim);font-size:15px}
+.hero__cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn--solid{background:var(--gold);color:var(--ink)}
+.btn--solid::before{background:var(--cream)}
+.hero__meta{display:grid;grid-template-columns:repeat(3,auto);border-top:1px solid var(--line)}
+.hero__meta>div{padding:18px 30px 0;border-left:1px solid var(--line)}
+.hero__meta>div:first-child{padding-left:0;border-left:0}
+.hero__meta dt{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:8px}
+.hero__meta dd{font-family:var(--serif);font-size:clamp(22px,2vw,30px);line-height:1;white-space:nowrap}
+.hero__side,.scroll-cue{position:absolute;z-index:2;writing-mode:vertical-rl;font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:var(--cream-dim)}
+.hero__side{right:calc(var(--gutter)*.36);top:0;bottom:0;display:flex;align-items:center}
+.scroll-cue{left:calc(var(--gutter)*.36);top:0;bottom:0}
+.hero__hint{position:absolute;z-index:2;top:112px;right:var(--gutter);display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-dim)}
+.hero__hint span{position:relative;width:18px;height:18px;border:1px solid var(--gold);border-radius:50%}
+.hero__hint span::after{content:"";position:absolute;inset:-1px;border:1px solid var(--gold);border-radius:50%;animation:ping 2.4s var(--ease) infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@media (hover:none){.hero__hint{display:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scroll-cue{display:flex;align-items:center;justify-content:center;gap:16px}
+.scroll-cue i{position:relative;width:1px;height:56px;background:var(--line);overflow:hidden}
+.scroll-cue i::after{content:"";position:absolute;left:0;top:-50%;width:1px;height:50%;background:var(--gold);animation:drip 2s var(--ease) infinite}
+@keyframes drip{to{top:100%}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);padding:28px 0;overflow:hidden;background:var(--ink)}
+.marquee__track{display:flex;width:max-content;will-change:transform}
+.marquee__item{display:flex;align-items:center;gap:48px;padding-right:48px;font-family:var(--serif);font-size:clamp(40px,6vw,88px);font-weight:300;white-space:nowrap}
+.marquee__item em{font-style:italic;color:var(--gold)}
+.marquee__item svg{width:.5em;height:.5em;flex:none}
+.marquee__item svg path{fill:var(--ember)}
+
+/* section basics */
+section{position:relative}
+.wrap{padding:clamp(72px,11vh,130px) var(--gutter)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:clamp(36px,6vh,64px);flex-wrap:wrap}
+.h2{font-family:var(--serif);font-weight:300;font-size:clamp(46px,7vw,112px);line-height:.95;letter-spacing:-.015em}
+.h2 em{font-style:italic;color:var(--gold)}
+.line-mask{display:block;overflow:hidden}
+.line-mask>span{display:block}
+.muted{color:var(--cream-dim)}
+
+/* about */
+/* story (pinned morning → evening scene) */
+.story{--tint:220,160,109;position:relative;background:var(--ink)}
+.story__pin{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:110px var(--gutter) 70px;
+  background:radial-gradient(ellipse 70% 60% at 72% 50%,rgba(var(--tint),.16),transparent 70%)}
+.story__bgword{position:absolute;left:0;top:50%;transform:translateY(-50%);display:flex;gap:8vw;white-space:nowrap;pointer-events:none;
+  font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(140px,26vw,420px);line-height:1;color:transparent;
+  -webkit-text-stroke:1px rgba(var(--tint),.22);padding-left:30vw;will-change:transform}
+.story__grid{position:relative;z-index:1;width:100%;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(40px,6vw,110px);align-items:center}
+.story__title{font-family:var(--serif);font-weight:300;font-size:clamp(46px,5.6vw,92px);line-height:.95;letter-spacing:-.015em;margin:22px 0 22px}
+.story__title em{font-style:italic;color:var(--gold)}
+.story__lead{color:var(--cream-dim);max-width:440px;font-size:15px}
+.chapters{list-style:none;margin-top:34px;border-top:1px solid var(--line)}
+.chapter{display:grid;grid-template-columns:48px 1fr;gap:10px;padding:18px 0;border-bottom:1px solid var(--line);opacity:.38;transition:opacity .6s var(--ease)}
+.chapter__n{font-size:11px;letter-spacing:.2em;color:var(--gold);padding-top:9px}
+.chapter h3{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.2vw,34px);line-height:1.1;transition:transform .7s var(--ease)}
+.chapter h3 em{font-style:italic;color:var(--gold-soft);font-size:.72em}
+.chapter p{color:var(--cream-dim);font-size:14px;max-width:400px;display:grid;grid-template-rows:0fr;overflow:hidden;opacity:0;transition:opacity .6s var(--ease),margin .6s var(--ease);margin-top:0;max-height:0}
+.chapter.is-active{opacity:1}
+.chapter.is-active h3{transform:translateX(10px)}
+.chapter.is-active p{opacity:1;max-height:120px;margin-top:8px;transition:opacity .8s var(--ease) .15s,max-height .8s var(--ease),margin .6s var(--ease)}
+.sky{margin-top:30px;max-width:320px}
+.sky svg{width:100%;overflow:visible}
+.sky__track,.sky__done{fill:none;stroke-width:1.2;stroke-linecap:round}
+.sky__track{stroke:var(--line);stroke-dasharray:3 5}
+.sky__done{stroke:rgb(var(--tint))}
+.sky__sun{fill:rgb(var(--tint));filter:drop-shadow(0 0 10px rgba(var(--tint),.9))}
+.sky__labels{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim)}
+.story__right{position:relative}
+.story__frames{position:relative;aspect-ratio:4/5;max-height:74vh;margin-left:auto;border-radius:2px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.frame{position:absolute;inset:0;overflow:hidden}
+.frame img{transform:scale(1.12);will-change:transform}
+.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(17,11,9,.75))}
+.frame figcaption{position:absolute;left:22px;bottom:18px;z-index:2;font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+.frame+.frame{clip-path:inset(100% 0 0 0)}
+.story__badge{position:absolute;left:-60px;bottom:-40px;width:150px;height:150px;z-index:3;display:grid;place-items:center}
+.story__badge svg:first-child{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.story__badge text{fill:var(--cream);font-size:11.5px;letter-spacing:4.2px;text-transform:uppercase;font-family:var(--sans)}
+.story__badge-core{width:44px;height:44px}
+.story__badge-core{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.story__badge::before{content:"";position:absolute;inset:14px;border-radius:50%;background:rgba(17,11,9,.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.story__badge-core{position:relative}
+.story__counter{position:absolute;right:0;top:-44px;display:flex;align-items:baseline;gap:8px;font-family:var(--serif)}
+.story__cur{display:inline-flex;flex-direction:column;height:1em;overflow:hidden;font-size:34px;line-height:1;color:var(--gold)}
+.story__cur span{display:block;transition:transform .8s var(--ease)}
+.story__of{font-size:16px;color:var(--cream-dim)}
+.story__progress{position:absolute;left:var(--gutter);right:var(--gutter);bottom:34px;height:1px;background:var(--line)}
+.story__progress i{position:absolute;inset:0;background:rgb(var(--tint));transform-origin:left;transform:scaleX(0)}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px);padding:clamp(40px,8vh,90px) var(--gutter) clamp(72px,11vh,130px)}
+.fact{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:4px;padding:30px 30px 28px;min-height:300px;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);transition:border-color .5s}
+.fact:hover{border-color:rgba(220,160,109,.45)}
+.fact__glow{position:absolute;width:340px;height:340px;border-radius:50%;left:var(--x,50%);top:var(--y,50%);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(220,160,109,.18),transparent 65%);opacity:0;transition:opacity .5s;pointer-events:none}
+.fact:hover .fact__glow{opacity:1}
+.fact__label{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+.fact__big{font-family:var(--serif);font-weight:300;font-size:clamp(84px,8vw,128px);line-height:.9;margin-top:auto;padding-top:24px;background:linear-gradient(180deg,var(--gold-soft),var(--gold) 60%,#9a5f34);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fact__mid{font-family:var(--serif);font-weight:300;font-size:clamp(32px,2.8vw,44px);line-height:1;margin:14px 0 12px}
+.fact p{color:var(--cream-dim);font-size:13px}
+.clock,.pin{width:120px;height:120px;margin-top:auto;padding-top:14px;overflow:visible}
+.clock>circle:first-child{fill:rgba(220,160,109,.05);stroke:rgba(220,160,109,.5);stroke-width:1}
+.clock__ticks line{stroke:rgba(247,235,223,.35);stroke-width:1}
+.clock__h,.clock__m{stroke:var(--cream);stroke-linecap:round}
+.clock__h{stroke-width:3}.clock__m{stroke-width:1.6;stroke:var(--gold)}
+.clock__c{fill:var(--gold)}
+.pin path{fill:rgba(220,160,109,.12);stroke:var(--gold);stroke-width:1.4}
+.pin circle{fill:none;stroke:var(--gold);stroke-width:1.4}
+.pin__shadow{fill:rgba(0,0,0,.45)}
+
+/* menu */
+.menu{background:var(--ink-2)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap}
+.tab{padding:11px 22px;border:1px solid var(--line);border-radius:100px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;transition:all .4s var(--ease)}
+.tab:hover{border-color:var(--gold)}
+.tab.active{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.menu__list{list-style:none;border-top:1px solid var(--line)}
+.menu__item{position:relative;display:grid;grid-template-columns:60px 1fr auto;align-items:baseline;gap:24px;padding:30px 0;border-bottom:1px solid var(--line);overflow:hidden}
+.menu__item::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(220,160,109,.1),transparent 70%);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.menu__item:hover::before{transform:scaleX(1)}
+.menu__idx{font-size:11px;letter-spacing:.2em;color:var(--gold)}
+.menu__name{font-family:var(--serif);font-size:clamp(28px,3.4vw,50px);line-height:1.05;font-weight:300;transition:transform .6s var(--ease),color .4s}
+.menu__item:hover .menu__name{transform:translateX(18px);font-style:italic;color:var(--gold-soft)}
+.menu__desc{display:block;font-family:var(--sans);font-size:13px;color:var(--cream-dim);margin-top:6px;letter-spacing:.02em}
+.menu__price{font-family:var(--serif);font-size:clamp(22px,2.2vw,32px);color:var(--gold)}
+.menu__price small{font-size:.5em;letter-spacing:.2em;margin-left:4px;color:var(--cream-dim)}
+.menu__panel{display:none}
+.menu__panel.active{display:block}
+.menu__layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,5vw,80px);align-items:start}
+.menu{overflow:hidden}
+.menu3d{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;display:block}
+.menu>.section-head,.menu>.menu__layout{position:relative;z-index:1}
+.menu__stage{position:sticky;top:110px;aspect-ratio:4/5}
+.menu__stage::before{content:"";position:absolute;left:50%;top:50%;width:120%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(220,160,109,.16),rgba(196,86,106,.05) 40%,transparent 68%);pointer-events:none}
+.menu__note{margin-top:28px;font-size:12px;color:var(--cream-dim);letter-spacing:.05em}
+
+/* gallery: 3D ring */
+.ringg{position:relative;overflow:hidden}
+.ringg__pin{position:relative;height:100vh;min-height:620px;overflow:hidden;
+  background:radial-gradient(ellipse 60% 50% at 50% 58%,rgba(220,160,109,.13),transparent 70%)}
+.ringg__bgword{position:absolute;top:50%;left:0;transform:translateY(-50%);white-space:nowrap;pointer-events:none;
+  font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(120px,19vw,300px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(220,160,109,.16);will-change:transform}
+.ringg__head{position:absolute;z-index:3;left:var(--gutter);top:clamp(96px,14vh,140px);max-width:400px}
+.ringg__head .h2{margin:18px 0 16px}
+.ringg__head p{font-size:14px}
+.ringg__stage{--cw:clamp(190px,19vw,310px);--r:calc(var(--cw) * 1.6);position:absolute;inset:0;display:grid;place-items:center;perspective:1000px;perspective-origin:50% 20%;padding-top:22vh}
+.ringg__ring{position:relative;width:var(--cw);height:calc(var(--cw) * 1.3);transform-style:preserve-3d;will-change:transform}
+.rcard{position:absolute;inset:0;border-radius:6px;overflow:hidden;background:var(--ink-3);
+  transform:rotateY(calc(var(--i) * 45deg)) translateZ(var(--r));-webkit-box-reflect:below 10px linear-gradient(transparent 60%,rgba(0,0,0,.28));
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.8);transition:box-shadow .5s}
+.rcard img{transform:scale(1.08);transition:transform .9s var(--ease)}
+.rcard:hover img{transform:scale(1.16)}
+.rcard::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid rgba(241,207,166,.18);pointer-events:none}
+.rcard.is-front{box-shadow:0 40px 90px -20px rgba(220,160,109,.35)}
+.ringg__caption{position:absolute;z-index:3;right:var(--gutter);bottom:clamp(60px,10vh,100px);text-align:right;display:grid;gap:6px}
+.ringg__idx{font-size:11px;letter-spacing:.3em;color:var(--gold)}
+.ringg__name{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(34px,4vw,64px);line-height:1;display:inline-block}
+.ringg__progress{position:absolute;left:var(--gutter);right:var(--gutter);bottom:34px;height:1px;background:var(--line)}
+.ringg__progress i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+
+/* visit */
+.visit{position:relative;overflow:hidden;padding:clamp(80px,13vh,150px) 0 clamp(72px,11vh,130px);
+  background:radial-gradient(ellipse 55% 45% at 75% 60%,rgba(220,160,109,.12),transparent 70%)}
+.visit__marquee{position:absolute;top:clamp(40px,8vh,90px);left:0;right:0;pointer-events:none;overflow:hidden}
+.visit__marquee-track{white-space:nowrap;font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(110px,16vw,260px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(220,160,109,.13);will-change:transform}
+.visit__inner{position:relative;padding:0 var(--gutter)}
+.visit__head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:clamp(40px,7vh,80px)}
+.visit__head .eyebrow{grid-column:1/-1}
+.visit__title{font-family:var(--serif);font-weight:300;font-size:clamp(64px,10vw,170px);line-height:.86;letter-spacing:-.025em}
+.vt-row{display:block;overflow:hidden;padding-bottom:.05em}
+.vt-row:last-child{padding-left:8vw}
+.visit__title em{font-style:italic;color:var(--gold)}
+.clockline{display:flex;align-items:center;gap:18px;padding:14px 22px;border:1px solid var(--line);border-radius:100px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);white-space:nowrap}
+.clockline strong{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.02em;color:var(--cream);font-variant-numeric:tabular-nums;text-transform:none;margin-left:6px}
+.clockline__left strong{color:var(--gold)}
+.clockline__sep{width:1px;height:22px;background:var(--line)}
+.visit__grid{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(40px,6vw,96px);align-items:stretch}
+.info{display:grid;border-top:1px solid var(--line)}
+.info__row{position:relative;display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:18px;padding:26px 0;border-bottom:1px solid var(--line);overflow:hidden}
+.info__row::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(220,160,109,.12),transparent 75%);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.info__row:hover::before{transform:scaleX(1)}
+.info__row>*{position:relative}
+.info__row dt{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.info__row dd{font-family:var(--serif);font-size:clamp(22px,2.1vw,32px);line-height:1.2;white-space:nowrap;transition:transform .6s var(--ease)}
+.info__row:hover dd{transform:translateX(12px)}
+.info__act{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0 16px;border:1px solid var(--line);border-radius:100px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);transition:all .5s var(--ease)}
+.info__act svg{width:16px;height:16px;transition:transform .5s var(--ease)}
+.info__row:hover .info__act{border-color:var(--gold);background:var(--gold);color:var(--ink)}
+.info__row--link:hover .info__act svg{transform:rotate(-45deg)}
+.info__act.done{background:#6fbf73;border-color:#6fbf73;color:var(--ink)}
+.live{display:flex;align-items:center;gap:10px;margin-top:8px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+.live i{width:8px;height:8px;border-radius:50%;background:#6fbf73;box-shadow:0 0 0 0 rgba(111,191,115,.6);animation:pulse 2s infinite}
+.live.closed i,.status.closed i{background:var(--ember);animation:none;box-shadow:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(111,191,115,0)}100%{box-shadow:0 0 0 0 rgba(111,191,115,0)}}
+.visit__cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:40px}
+.route{position:relative;width:132px;height:132px;display:grid;place-items:center;border-radius:50%;background:var(--gold);color:var(--ink);transition:background .5s var(--ease)}
+.route:hover{background:var(--cream)}
+.route__ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 14s linear infinite}
+.route__ring text{fill:var(--ink);font-size:12px;letter-spacing:4.6px;text-transform:uppercase;font-family:var(--sans);font-weight:600}
+.route__arrow{width:30px;height:30px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .6s var(--ease)}
+.route:hover .route__arrow{transform:rotate(45deg) scale(1.15)}
+.map{position:relative;min-height:520px;overflow:hidden;border-radius:18px;border:1px solid var(--line);isolation:isolate;
+  background:var(--ink-3) radial-gradient(circle at 50% 45%,rgba(220,160,109,.18),transparent 60%);transform-style:preserve-3d}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.8) contrast(1.05)}
+.map__tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(17,11,9,.28),transparent 30%,transparent 70%,rgba(17,11,9,.45))}
+.map__radar{position:absolute;left:50%;top:48%;width:0;height:0;pointer-events:none}
+.map__radar i{position:absolute;left:-90px;top:-90px;width:180px;height:180px;border-radius:50%;border:2px solid rgba(220,160,109,.9);background:radial-gradient(circle,rgba(220,160,109,.25),transparent 60%);animation:radar 3s cubic-bezier(.2,.6,.3,1) infinite;opacity:0}
+.map__radar i:nth-child(2){animation-delay:1s}.map__radar i:nth-child(3){animation-delay:2s}
+@keyframes radar{0%{transform:scale(.1);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.map__corners{position:absolute;inset:14px;pointer-events:none;
+  background:linear-gradient(var(--gold),var(--gold)) left top/22px 1px no-repeat,linear-gradient(var(--gold),var(--gold)) left top/1px 22px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) right top/22px 1px no-repeat,linear-gradient(var(--gold),var(--gold)) right top/1px 22px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) left bottom/22px 1px no-repeat,linear-gradient(var(--gold),var(--gold)) left bottom/1px 22px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) right bottom/22px 1px no-repeat,linear-gradient(var(--gold),var(--gold)) right bottom/1px 22px no-repeat}
+.map__fallback{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;padding:24px}
+.map__fallback svg{width:48px;height:48px}
+.map__fallback path,.map__fallback circle{fill:none;stroke:var(--gold);stroke-width:1.3}
+.map__fallback strong{font-family:var(--serif);font-weight:400;font-size:30px}
+.map__open{position:absolute;left:22px;bottom:22px;z-index:2;display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:100px;background:var(--ink);border:1px solid var(--gold);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);box-shadow:0 10px 30px rgba(0,0,0,.35);transition:background .4s,color .4s}
+.map__open:hover{background:var(--gold);color:var(--ink)}
+.map__coords{position:absolute;right:26px;bottom:30px;z-index:2;font-size:10px;letter-spacing:.24em;color:var(--ink);background:rgba(247,235,223,.85);padding:6px 10px;border-radius:100px}
+
+/* footer */
+.footer{border-top:1px solid var(--line);padding:clamp(72px,12vh,120px) var(--gutter) 30px;overflow:hidden}
+.footer__big{font-family:var(--serif);font-weight:300;font-size:clamp(64px,16.5vw,300px);line-height:.85;letter-spacing:-.03em;white-space:nowrap}
+.footer__big em{font-style:italic;color:var(--gold)}
+.footer__big .char{transform-origin:bottom}
+.footer__big small{font-size:.24em;font-style:italic;letter-spacing:0;color:var(--cream-dim);margin-left:.2em}
+.footer__bottom{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:60px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+.to-top{display:inline-flex;align-items:center;gap:10px}
+.to-top:hover{color:var(--gold)}
+
+/* responsive */
+@media (max-width:960px){
+  .nav__links,.nav .btn{display:none}
+  .burger{display:block}
+  .visit__grid{grid-template-columns:1fr}
+  .visit__head{grid-template-columns:1fr}
+  .clockline{justify-self:start}
+  .story__pin{min-height:0;padding:90px var(--gutter) 30px}
+  .story__grid{grid-template-columns:1fr}
+  .story__bgword,.story__progress,.story__counter,.sky{display:none}
+  .chapter{opacity:1}
+  .chapter p{opacity:1;max-height:none;margin-top:8px}
+  .story__frames{display:flex;gap:12px;aspect-ratio:auto;max-height:none;overflow-x:auto;scroll-snap-type:x mandatory;box-shadow:none;border-radius:0;margin-right:calc(var(--gutter)*-1)}
+  .frame{position:relative;inset:auto;flex:0 0 78%;aspect-ratio:4/5;scroll-snap-align:start;border-radius:2px}
+  .frame+.frame{clip-path:none}
+  .story__badge{left:auto;right:6px;bottom:-46px;top:auto;width:104px;height:104px}
+  .menu__layout{grid-template-columns:1fr}
+  .hero__foot{grid-template-columns:1fr;gap:28px}
+  .hero__side,.scroll-cue{display:none}
+  .menu__stage{position:relative;top:0;aspect-ratio:auto;height:340px}
+  .hero__title .row:last-child{padding-left:0}
+}
+@media (max-width:640px){
+  .facts{grid-template-columns:1fr}
+  .logo small{display:none}
+  .hero__title .row--sub{font-size:.42em}
+  .ringg__head{right:var(--gutter);max-width:none}
+  .ringg__head p{display:none}
+  .ringg__stage{--cw:40vw;padding-top:26vh}
+  .ringg__caption{bottom:64px}
+  .hero__meta{grid-template-columns:repeat(3,1fr)}
+  .hero__meta>div{padding:14px 10px 0}
+  .hero__meta dd{font-size:19px}
+  .hero__meta dt{letter-spacing:.18em}
+  .menu__item{grid-template-columns:1fr auto;gap:14px}
+  .menu__idx{display:none}
+  .info__row{grid-template-columns:1fr auto;gap:6px 14px}
+  .info__row dt{grid-column:1/-1}
+  .clockline{flex-wrap:wrap;white-space:normal;border-radius:14px;gap:10px}
+  .clockline__sep{display:none}
+  .vt-row:last-child{padding-left:0}
+  .map__coords{display:none}
+  .map{min-height:380px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body class="loading">
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span>Pogledaj</span></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<!-- Avgust emblem: cup + August sun (reused) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="emblem" viewBox="0 0 64 64">
+      <path d="M14 30h30v8c0 8-6 14-15 14s-15-6-15-14z"/>
+      <path d="M44 33h3a5 5 0 0 1 0 10h-5"/>
+      <path d="M9 56h40"/>
+      <path d="M22 25c-2-3 2-5 0-8m8 8c-2-3 2-5 0-8"/>
+      <path d="M46 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/>
+      <path d="M51 3v2.5m0 17v2.5m11-11h-2.5m-17 0H40m18.8-7.8-1.8 1.8m-12 12-1.8 1.8m15.6 0-1.8-1.8m-12-12-1.8-1.8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Preloader -->
+<div class="loader" id="loader">
+  <div class="loader__panel loader__panel--t"></div>
+  <div class="loader__panel loader__panel--b"></div>
+  <div class="loader__inner">
+    <svg class="loader__mark" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M14 30h30v8c0 8-6 14-15 14s-15-6-15-14z"/>
+      <path d="M44 33h3a5 5 0 0 1 0 10h-5"/>
+      <path d="M9 56h40"/>
+      <path d="M22 25c-2-3 2-5 0-8m8 8c-2-3 2-5 0-8"/>
+      <path d="M46 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/>
+      <path d="M51 3v2.5m0 17v2.5m11-11h-2.5m-17 0H40m18.8-7.8-1.8 1.8m-12 12-1.8 1.8m15.6 0-1.8-1.8m-12-12-1.8-1.8"/>
+    </svg>
+    <div class="loader__count"><span id="count">0</span></div>
+    <div class="loader__label">Avgust · coffee &amp; cake bar</div>
+  </div>
+  <div class="loader__bar"></div>
+</div>
+
+<!-- Nav -->
+<header class="nav" id="nav">
+  <a href="#top" class="logo" data-hover>
+    <svg viewBox="0 0 64 64"><use href="#emblem"/></svg>
+    <span>Av<em>gust</em><small>coffee &amp; cake</small></span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="#prica" data-hover><span>Priča</span><span>Priča</span></a></li>
+    <li><a href="#meni" data-hover><span>Meni</span><span>Meni</span></a></li>
+    <li><a href="#galerija" data-hover><span>Galerija</span><span>Galerija</span></a></li>
+    <li><a href="#posetite" data-hover><span>Posetite nas</span><span>Posetite nas</span></a></li>
+  </ul>
+  <a href="tel:+381621110321" class="btn magnetic" data-hover>Rezerviši sto
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+  <button class="burger" id="burger" aria-label="Otvori meni"><i></i><i></i></button>
+</header>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobilni meni">
+  <a href="#prica">Priča</a>
+  <a href="#meni">Meni</a>
+  <a href="#galerija">Galerija</a>
+  <a href="#posetite">Posetite nas</a>
+  <p>Bulevar kralja Aleksandra 225 · 062 111 0321</p>
+</nav>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__media" data-speed="0.4">
+      <img src="assets/img/hero.jpg" alt="Topao enterijer kafića sa prigušenim svetlom">
+    </div>
+    <div class="hero__side hero-fade" aria-hidden="true">Coffee &amp; cake bar — Lion — Beograd</div>
+    <div class="hero__hint hero-fade" aria-hidden="true"><span></span>Pomerite kursor preko kafe</div>
+    <div class="hero__content">
+      <div class="hero__top">
+        <span class="status hero-fade"><i></i><span id="heroStatus">Otvoreno 08 — 22h</span></span>
+        <span class="eyebrow hero-fade">Coffee &amp; cake bar · Lion</span>
+      </div>
+      <h1 class="hero__title" aria-label="Avgust coffee &amp; cake bar">
+        <span class="row split" data-depth="1">Avgust</span>
+        <span class="row row--sub split" data-depth="-1.4"><em>coffee &amp; cake bar</em></span>
+      </h1>
+      <div class="hero__foot">
+        <div class="hero__intro">
+          <p class="hero__lead hero-fade">Mesto na Lionu gde svaki dan miriše na kraj leta — espresso iz ruku bariste, parče torte uz prozor i razgovor koji traje taman koliko i kafa.</p>
+          <div class="hero__cta hero-fade">
+            <a href="#meni" class="btn btn--solid magnetic" data-hover>Pogledaj meni
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a href="tel:+381621110321" class="btn magnetic" data-hover>062 111 0321</a>
+          </div>
+        </div>
+        <dl class="hero__meta">
+          <div class="hero-fade"><dt>Kraj</dt><dd>Lion</dd></div>
+          <div class="hero-fade"><dt>Specijalitet</dt><dd>Torte</dd></div>
+          <div class="hero-fade"><dt>Radno vreme</dt><dd>08 — 22h</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="scroll-cue hero-fade" aria-hidden="true"><i></i>Skrolujte</div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <div class="marquee__item">
+        <span>Espresso</span><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <em>Torte</em><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <span>Cappuccino</span><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <em>Kolači</em><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <span>Lion</span><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story: pinned "one day on the corner" scene (morning → day → evening) -->
+  <section class="story" id="prica">
+    <div class="story__pin">
+      <div class="story__bgword" aria-hidden="true"><span>Jutro</span><span>Popodne</span><span>Veče</span></div>
+
+      <div class="story__grid">
+        <div class="story__left">
+          <span class="eyebrow">Naša priča</span>
+          <h2 class="story__title"><span class="line-mask"><span>Kafa i kolač,</span></span><span class="line-mask"><span><em>tri rituala.</em></span></span></h2>
+          <p class="story__lead">Avgust je onaj mesec kad se nigde ne žuri. Taj osećaj smo preneli na Lion — da vam svaki dan u godini ima malo avgusta.</p>
+
+          <ol class="chapters">
+            <li class="chapter is-active">
+              <span class="chapter__n">01</span>
+              <div><h3>Jutro <em>· prva kafa</em></h3>
+              <p>Od 08h — espresso, cappuccino ili flat white, i kroasan dok je još topao.</p></div>
+            </li>
+            <li class="chapter">
+              <span class="chapter__n">02</span>
+              <div><h3>Popodne <em>· parče torte</em></h3>
+              <p>Sto uz prozor, torta dana iz vitrine i društvo koje uvek ima vremena za još jednu kafu.</p></div>
+            </li>
+            <li class="chapter">
+              <span class="chapter__n">03</span>
+              <div><h3>Veče <em>· nešto toplo</em></h3>
+              <p>Kad se upale svetla — topla čokolada, čaj ili poslednji kolač za put, sve do 22h.</p></div>
+            </li>
+          </ol>
+
+          <div class="sky" aria-hidden="true">
+            <svg viewBox="0 0 300 90">
+              <path class="sky__track" d="M10 82 Q150 -58 290 82"/>
+              <path class="sky__done" id="skyDone" d="M10 82 Q150 -58 290 82"/>
+              <circle class="sky__sun" id="skySun" r="7" cx="10" cy="82"/>
+            </svg>
+            <div class="sky__labels"><span>08h</span><span>22h</span></div>
+          </div>
+        </div>
+
+        <div class="story__right">
+          <div class="story__frames">
+            <figure class="frame"><img src="assets/img/about.jpg" alt="Barista priprema kafu na pour-over način"><figcaption>01 — Jutro</figcaption></figure>
+            <figure class="frame"><img src="assets/img/m-slatko.jpg" alt="Kroasani posuti šećerom u prahu"><figcaption>02 — Popodne</figcaption></figure>
+            <figure class="frame"><img src="assets/img/m-topli.jpg" alt="Topla čokolada u šolji"><figcaption>03 — Veče</figcaption></figure>
+          </div>
+          <div class="story__badge" aria-hidden="true">
+            <svg viewBox="0 0 150 150">
+              <defs><path id="storyCirc" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+              <text><textPath href="#storyCirc">Coffee &amp; cake bar · Avgust · Lion ·</textPath></text>
+            </svg>
+            <svg class="story__badge-core" viewBox="0 0 64 64"><use href="#emblem"/></svg>
+          </div>
+          <div class="story__counter" aria-hidden="true"><span class="story__cur"><span>01</span><span>02</span><span>03</span></span><span class="story__of">/ 03</span></div>
+        </div>
+      </div>
+
+      <div class="story__progress" aria-hidden="true"><i></i></div>
+    </div>
+
+    <div class="facts">
+      <article class="fact reveal-up">
+        <div class="fact__glow"></div>
+        <span class="fact__label">Svakog dana</span>
+        <div class="fact__big"><span class="counter" data-to="14" data-dec="0">14</span></div>
+        <div class="fact__mid">sati kafe i kolača</div>
+        <p>Od 08 do 22h, sedam dana u nedelji — i vikendom.</p>
+      </article>
+      <article class="fact reveal-up">
+        <div class="fact__glow"></div>
+        <span class="fact__label">Radno vreme</span>
+        <svg class="clock" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="54"/>
+          <g class="clock__ticks"></g>
+          <line class="clock__h" x1="60" y1="60" x2="60" y2="32"/>
+          <line class="clock__m" x1="60" y1="60" x2="60" y2="18"/>
+          <circle class="clock__c" cx="60" cy="60" r="3"/>
+        </svg>
+        <div class="fact__mid">08 — 22h</div>
+        <p>Jutarnja kafa, popodnevna torta, večernja čokolada.</p>
+      </article>
+      <article class="fact reveal-up">
+        <div class="fact__glow"></div>
+        <span class="fact__label">Adresa</span>
+        <svg class="pin" viewBox="0 0 120 120" aria-hidden="true">
+          <ellipse class="pin__shadow" cx="60" cy="100" rx="16" ry="4"/>
+          <g class="pin__drop"><path d="M60 96s24-22 24-42a24 24 0 0 0-48 0c0 20 24 42 24 42z"/><circle cx="60" cy="54" r="8"/></g>
+        </svg>
+        <div class="fact__mid">Bulevar kralja Aleksandra 225</div>
+        <p>11120 Beograd — Lion, Zvezdara.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Menu -->
+  <section class="menu wrap" id="meni">
+    <div class="section-head">
+      <h2 class="h2"><span class="line-mask"><span>Kafa uz kolač,</span></span><span class="line-mask"><span><em>kolač</em> uz kafu.</span></span></h2>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="kafa" role="tab" data-hover>Kafa</button>
+        <button class="tab" data-tab="torte" role="tab" data-hover>Torte</button>
+        <button class="tab" data-tab="kolaci" role="tab" data-hover>Kolači</button>
+        <button class="tab" data-tab="topli" role="tab" data-hover>Topli napici</button>
+        <button class="tab" data-tab="osvezenja" role="tab" data-hover>Osveženja</button>
+      </div>
+    </div>
+
+    <div class="menu__layout">
+    <!-- Empty anchor: the 3D objects (canvas behind the whole section) float around this spot -->
+    <div class="menu__stage" id="menuStage" aria-hidden="true"></div>
+    <div>
+    <div class="menu__panel active" data-panel="kafa">
+      <ul class="menu__list">
+        <li class="menu__item"><span class="menu__idx">01</span><span class="menu__name">Espresso<span class="menu__desc">Kratak, gust, sa čokoladnim tonovima</span></span><span class="menu__price">170<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">02</span><span class="menu__name">Cappuccino<span class="menu__desc">Espresso, svilenkasto mleko, tanka pena</span></span><span class="menu__price">230<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">03</span><span class="menu__name">Flat White<span class="menu__desc">Dupli ristretto i mikropena</span></span><span class="menu__price">270<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">04</span><span class="menu__name">Ledena kafa<span class="menu__desc">Espresso, mleko, sladoled i šlag</span></span><span class="menu__price">320<small>RSD</small></span></li>
+      </ul>
+    </div>
+    <div class="menu__panel" data-panel="torte">
+      <ul class="menu__list">
+        <li class="menu__item"><span class="menu__idx">01</span><span class="menu__name">Čokoladna torta<span class="menu__desc">Tamna čokolada, gust ganache</span></span><span class="menu__price">380<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">02</span><span class="menu__name">Cheesecake<span class="menu__desc">Kremast, sa prelivom od malina</span></span><span class="menu__price">390<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">03</span><span class="menu__name">Plazma torta<span class="menu__desc">Domaći klasik, kao kod bake</span></span><span class="menu__price">350<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">04</span><span class="menu__name">Torta dana<span class="menu__desc">Pitajte šta je danas u vitrini</span></span><span class="menu__price">360<small>RSD</small></span></li>
+      </ul>
+    </div>
+    <div class="menu__panel" data-panel="kolaci">
+      <ul class="menu__list">
+        <li class="menu__item"><span class="menu__idx">01</span><span class="menu__name">Kroasan<span class="menu__desc">Buter, hrskav, pečen ujutru</span></span><span class="menu__price">210<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">02</span><span class="menu__name">Brauni<span class="menu__desc">Topao, sa kuglom sladoleda po želji</span></span><span class="menu__price">280<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">03</span><span class="menu__name">Makaronsi<span class="menu__desc">Tri komada, ukusi po izboru</span></span><span class="menu__price">300<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">04</span><span class="menu__name">Kolač dana<span class="menu__desc">Mali slatki zalogaj uz kafu</span></span><span class="menu__price">250<small>RSD</small></span></li>
+      </ul>
+    </div>
+    <div class="menu__panel" data-panel="topli">
+      <ul class="menu__list">
+        <li class="menu__item"><span class="menu__idx">01</span><span class="menu__name">Topla čokolada<span class="menu__desc">Gusta, tamna, sa šlagom po izboru</span></span><span class="menu__price">300<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">02</span><span class="menu__name">Čaj<span class="menu__desc">Izbor crnih, zelenih i biljnih čajeva</span></span><span class="menu__price">190<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">03</span><span class="menu__name">Chai latte<span class="menu__desc">Začinjeni čaj i toplo mleko</span></span><span class="menu__price">300<small>RSD</small></span></li>
+      </ul>
+    </div>
+    <div class="menu__panel" data-panel="osvezenja">
+      <ul class="menu__list">
+        <li class="menu__item"><span class="menu__idx">01</span><span class="menu__name">Domaća limunada<span class="menu__desc">Limun, mente, malo meda</span></span><span class="menu__price">290<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">02</span><span class="menu__name">Ledeni čaj<span class="menu__desc">Breskva ili zeleni čaj sa citrusima</span></span><span class="menu__price">270<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">03</span><span class="menu__name">Frape<span class="menu__desc">Hladna kafa umućena sa mlekom</span></span><span class="menu__price">310<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">04</span><span class="menu__name">Ceđena pomorandža<span class="menu__desc">Sveže, 0,25 l</span></span><span class="menu__price">330<small>RSD</small></span></li>
+      </ul>
+    </div>
+    <p class="menu__note">* Ponuda i cene su okvirne — aktuelni meni potražite u kafiću.</p>
+    </div>
+    </div>
+  </section>
+
+  <!-- Gallery: 3D ring of photos that turns with scroll -->
+  <section class="ringg" id="galerija">
+    <div class="ringg__pin">
+      <div class="ringg__bgword" aria-hidden="true">Slatki trenuci · Slatki trenuci ·</div>
+      <div class="ringg__head">
+        <span class="eyebrow">Galerija</span>
+        <h2 class="h2"><span class="line-mask"><span>Slatki</span></span><span class="line-mask"><span><em>trenuci.</em></span></span></h2>
+        <p class="muted">Od jutarnjeg espressa do poslednjeg parčeta torte — svaki deo dana ovde ima svoj ukus.</p>
+      </div>
+      <div class="ringg__stage">
+        <div class="ringg__ring" id="ring">
+          <figure class="rcard" data-view><img src="assets/img/g2.jpg" alt="Enterijer kafića sa biljkama i drvenim stolicama"></figure>
+          <figure class="rcard" data-view><img src="assets/img/m-kafa.jpg" alt="Cappuccino sa latte art-om"></figure>
+          <figure class="rcard" data-view><img src="assets/img/g3.jpg" alt="Pržena zrna kafe izbliza"></figure>
+          <figure class="rcard" data-view><img src="assets/img/about2.jpg" alt="Ledena kafa sa mlekom u čaši"></figure>
+          <figure class="rcard" data-view><img src="assets/img/m-slatko.jpg" alt="Kroasani na stolu"></figure>
+          <figure class="rcard" data-view><img src="assets/img/g5.jpg" alt="Portafilter sa mlevenom kafom"></figure>
+          <figure class="rcard" data-view><img src="assets/img/m-topli.jpg" alt="Topla čokolada u šolji"></figure>
+          <figure class="rcard" data-view><img src="assets/img/g1.jpg" alt="Dve šolje kafe sa latte art-om u rukama prijatelja"></figure>
+        </div>
+      </div>
+      <div class="ringg__caption" aria-live="polite">
+        <span class="ringg__idx"><span id="ringIdx">01</span> / 08</span>
+        <span class="ringg__name" id="ringName">Ugođaj</span>
+      </div>
+      <div class="ringg__progress" aria-hidden="true"><i></i></div>
+    </div>
+  </section>
+
+  <!-- Visit -->
+  <section class="visit" id="posetite">
+    <div class="visit__marquee" aria-hidden="true"><div class="visit__marquee-track">Avgust · Lion · Avgust · Lion · Avgust · Lion · Avgust · Lion ·</div></div>
+    <div class="visit__inner">
+      <div class="visit__head">
+        <span class="eyebrow">Posetite nas</span>
+        <h2 class="visit__title" aria-label="Svratite na Lion."><span class="vt-row split-v">Svratite</span><span class="vt-row split-v"><em>na Lion.</em></span></h2>
+        <div class="clockline" aria-live="off">
+          <span class="clockline__now">Sada je <strong id="nowTime">--:--</strong></span>
+          <span class="clockline__sep"></span>
+          <span class="clockline__left"><span id="leftLabel">Do zatvaranja</span>: <strong id="leftTime">--:--:--</strong></span>
+        </div>
+      </div>
+
+      <div class="visit__grid">
+        <div class="visit__info">
+          <dl class="info">
+            <div class="info__row reveal-up">
+              <dt>Adresa</dt>
+              <dd>Bulevar kralja<br>Aleksandra 225</dd>
+              <button class="info__act" id="copyAddr" type="button" data-hover><span>Kopiraj</span></button>
+            </div>
+            <a class="info__row info__row--link reveal-up" href="tel:+381621110321" data-hover>
+              <dt>Telefon</dt>
+              <dd>062 111 0321</dd>
+              <span class="info__act" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+            </a>
+            <div class="info__row reveal-up">
+              <dt>Radno vreme</dt>
+              <dd>Svakog dana 08 — 22h<div class="live" id="live"><i></i><span>Proveravam…</span></div></dd>
+            </div>
+            <a class="info__row info__row--link reveal-up" href="https://www.instagram.com/kafeterija.avgust/" target="_blank" rel="noopener" data-hover>
+              <dt>Instagram</dt>
+              <dd>@kafeterija.avgust</dd>
+              <span class="info__act" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+            </a>
+          </dl>
+          <div class="visit__cta reveal-up">
+            <a class="route magnetic" data-hover target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=44.7960253,20.4987738" aria-label="Putanja do kafića Avgust u Google mapama">
+              <svg class="route__ring" viewBox="0 0 150 150" aria-hidden="true">
+                <defs><path id="routeCirc" d="M75,75 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs>
+                <text><textPath href="#routeCirc">Putanja · Putanja · Putanja ·</textPath></text>
+              </svg>
+              <svg class="route__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="btn magnetic" data-hover href="tel:+381621110321">Pozovite nas
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+
+        <div class="map" id="map">
+          <!-- Shown underneath the map; visible only if the embed can't load (e.g. offline). -->
+          <div class="map__fallback">
+            <svg viewBox="0 0 48 48"><path d="M24 44s14-13 14-24a14 14 0 0 0-28 0c0 11 14 24 14 24z"/><circle cx="24" cy="20" r="5"/></svg>
+            <strong>Bulevar kralja Aleksandra 225</strong>
+          </div>
+          <iframe title="Mapa — Avgust coffee &amp; cake bar, Bulevar kralja Aleksandra 225" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+            src="https://maps.google.com/maps?q=44.7960253,20.4987738&amp;z=17&amp;hl=sr&amp;output=embed"></iframe>
+          <div class="map__tint" aria-hidden="true"></div>
+          <div class="map__radar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="map__corners" aria-hidden="true"></div>
+          <a class="map__open" data-hover target="_blank" rel="noopener"
+            href="https://www.google.com/maps/place/%22Avgust%22+coffe+%26+cake+bar/@44.7960253,20.4987738,17z/data=!4m6!3m5!1s0x475a71c461c4dc59:0x49e7971e652611f0!8m2!3d44.7960253!4d20.4987738!16s%2Fg%2F11h3mf1hwn">Otvori u Google mapama ↗</a>
+          <span class="map__coords" aria-hidden="true">44.7960° N · 20.4988° E</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__big split-foot" aria-label="Avgust coffee &amp; cake bar">Av<em>gust</em><small>coffee &amp; cake</small></div>
+  <div class="footer__bottom">
+    <span>© <span id="yr"></span> Avgust coffee &amp; cake bar · Bulevar kralja Aleksandra 225, Beograd</span>
+    <span>Fotografije: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> · 3D predmeti izrađeni u Three.js</span>
+    <a href="#top" class="to-top" data-hover>Nazad na vrh ↑</a>
+  </div>
+</footer>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/lenis.min.js"></script>
+<script src="assets/js/three.min.js"></script>
+<script src="assets/js/menu3d.js"></script>
+<script src="assets/js/hero-gl.js"></script>
+<script>
+(function(){
+  const $ = (s,c=document)=>c.querySelector(s);
+  const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  $('#yr').textContent = new Date().getFullYear();
+
+  // --- Opening hours (every day 08–22, Belgrade time) ---
+  const OPEN=8*3600, CLOSE=22*3600;
+  const bgFmt=new Intl.DateTimeFormat('sr-Latn',{timeZone:'Europe/Belgrade',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  const bgSec=()=>{ const p=Object.fromEntries(bgFmt.formatToParts(new Date()).map(x=>[x.type,x.value])); return (+p.hour%24)*3600+(+p.minute)*60+(+p.second); };
+
+  // --- Live Belgrade clock + countdown to closing / opening ---
+  (function(){
+    const nowEl=$('#nowTime'), leftEl=$('#leftTime'), labelEl=$('#leftLabel'); if(!nowEl) return;
+    const p2=n=>String(n).padStart(2,'0');
+    function tick(){
+      const t=bgSec(), open=t>=OPEN&&t<CLOSE;
+      nowEl.textContent=`${p2(Math.floor(t/3600))}:${p2(Math.floor(t%3600/60))}`;
+      labelEl.textContent=open?'Do zatvaranja':'Do otvaranja';
+      const left=open?CLOSE-t:(t<OPEN?OPEN-t:86400-t+OPEN);
+      leftEl.textContent=`${p2(Math.floor(left/3600))}:${p2(Math.floor(left%3600/60))}:${p2(left%60)}`;
+    }
+    tick(); setInterval(tick,1000);
+  })();
+
+  // --- Copy address ---
+  $('#copyAddr')?.addEventListener('click',async e=>{
+    const b=e.currentTarget, label=$('span',b);
+    try{ await navigator.clipboard.writeText('Bulevar kralja Aleksandra 225, 11120 Beograd'); label.textContent='Kopirano ✓'; b.classList.add('done'); }
+    catch(err){ label.textContent='Bul. k. Aleksandra 225'; }
+    setTimeout(()=>{ label.textContent='Kopiraj'; b.classList.remove('done'); },2200);
+  });
+
+  // --- Open / closed hint ---
+  (function(){
+    const live=$('#live'), label=live.querySelector('span');
+    function upd(){
+      const t=bgSec(), open=t>=OPEN&&t<CLOSE, left=Math.ceil((CLOSE-t)/60);
+      live.classList.toggle('closed',!open);
+      $('.status').classList.toggle('closed',!open);
+      label.textContent = !open ? 'Sada zatvoreno — otvaramo u 08h'
+        : left<=90 ? `Zatvaramo za ${Math.floor(left/60)?Math.floor(left/60)+' h ':''}${left%60} min`
+        : 'Sada otvoreno — do 22h';
+      $('#heroStatus').textContent = !open ? 'Zatvoreno · otvaramo u 08h' : left<=90 ? label.textContent : 'Otvoreno do 22h';
+    }
+    upd(); setInterval(upd,30000);
+  })();
+
+  // --- Split helper ---
+  function splitChars(el){
+    const walk = node => {
+      [...node.childNodes].forEach(n=>{
+        if(n.nodeType===3){
+          const frag=document.createDocumentFragment();
+          [...n.textContent].forEach(ch=>{
+            if(ch===' '){frag.appendChild(document.createTextNode(' '));return;}
+            const s=document.createElement('span');s.className='char';s.textContent=ch;frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else if(n.nodeType===1) walk(n);
+      });
+    };
+    walk(el);
+    return $$('.char',el);
+  }
+  function splitWords(el){
+    const walk = node => {
+      [...node.childNodes].forEach(n=>{
+        if(n.nodeType===3){
+          const frag=document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(w=>{
+            if(!w) return;
+            if(/^\s+$/.test(w)){frag.appendChild(document.createTextNode(w));return;}
+            const s=document.createElement('span');s.className='w';s.textContent=w;frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else if(n.nodeType===1) walk(n);
+      });
+    };
+    walk(el); return $$('.w',el);
+  }
+
+  // --- Clock ticks (static markup, also shown without GSAP) ---
+  (function(){
+    const g=$('.clock__ticks'); if(!g) return;
+    for(let i=0;i<12;i++){ const a=i/12*Math.PI*2, r1=i%3?47:43;
+      g.insertAdjacentHTML('beforeend',`<line x1="${(60+Math.sin(a)*r1).toFixed(1)}" y1="${(60-Math.cos(a)*r1).toFixed(1)}" x2="${(60+Math.sin(a)*50).toFixed(1)}" y2="${(60-Math.cos(a)*50).toFixed(1)}"/>`); }
+  })();
+
+  // --- Menu: realistic 3D objects floating freely (see menu3d script) ---
+  const menu3D = window.initMenu3D ? window.initMenu3D({section:$('#meni'),stage:$('#menuStage'),fine,reduce}) : null;
+  function showVisual(key){ if(menu3D) menu3D.show(key); }
+  // Hero: photo through a WebGL coffee-surface ripple shader (static <img> stays as fallback)
+  const heroGL = window.initHeroGL ? window.initHeroGL({host:$('.hero__media'),img:$('.hero__media img'),reduce}) : null;
+  window.__menu3D = menu3D; window.__heroGL = heroGL; // handy for debugging in the console
+
+  // No GSAP? Show everything statically.
+  if(!window.gsap || !window.ScrollTrigger){
+    document.body.classList.remove('loading'); $('#loader').remove();
+    $$('.counter').forEach(c=>c.textContent=c.dataset.pad?c.dataset.to.padStart(2,'0'):c.dataset.to.replace('.',','));
+    $$('.tab').forEach(t=>t.addEventListener('click',()=>{
+      $$('.tab').forEach(x=>x.classList.toggle('active',x===t));
+      $$('.menu__panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===t.dataset.tab));
+      showVisual(t.dataset.tab);
+    }));
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // --- Smooth scroll ---
+  let lenis=null;
+  if(window.Lenis && !reduce){
+    lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000));
+    gsap.ticker.lagSmoothing(0);
+    lenis.stop();
+  }
+  $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+    const id=a.getAttribute('href'); const t=id==='#top'?0:$(id); if(t===null) return;
+    e.preventDefault(); document.documentElement.classList.remove('menu-open');
+    lenis?lenis.scrollTo(t===0?0:t.getBoundingClientRect().top+window.scrollY,{duration:1.6}):(t===0?scrollTo({top:0,behavior:'smooth'}):t.scrollIntoView({behavior:'smooth'}));
+  }));
+
+  // --- Prepare splits ---
+  const heroChars=$$('.hero__title .split').flatMap(splitChars);
+  const footChars=splitChars($('.split-foot'));
+  const visitChars=$$('.split-v').flatMap(splitChars);
+
+  gsap.set(heroChars,{yPercent:110,rotate:6});
+  gsap.set('.hero-fade',{opacity:0,y:30});
+  gsap.set('.nav',{yPercent:-100,opacity:0});
+
+  // --- Preloader ---
+  const loaderPaths=$$('#loader path');
+  loaderPaths.forEach(p=>{const l=p.getTotalLength();p.style.strokeDasharray=l;p.style.strokeDashoffset=l;});
+  const counter={v:0};
+  const tl=gsap.timeline({defaults:{ease:'expo.inOut'}});
+  tl.to(loaderPaths,{strokeDashoffset:0,duration:reduce?.2:2,stagger:.12,ease:'power2.inOut'},0)
+    .to(counter,{v:100,duration:reduce?.2:2.2,ease:'power3.inOut',onUpdate:()=>{$('#count').textContent=Math.round(counter.v)}},0)
+    .to('.loader__bar',{width:'100%',duration:reduce?.2:2.2,ease:'power3.inOut'},0)
+    .to('.loader__inner',{opacity:0,y:-30,duration:.6,ease:'power2.in'})
+    .to('.loader__panel--t',{yPercent:-100,duration:1.1},'-=.1')
+    .to('.loader__panel--b',{yPercent:100,duration:1.1},'<')
+    .set('.loader',{background:'transparent'},'<')
+    .from('.hero__media img',{scale:1.5,duration:2.2,ease:'expo.out'},'<')
+    .fromTo(heroGL?heroGL.state:{},{zoom:1.5},{zoom:1.15,duration:2.2,ease:'expo.out'},'<')
+    .add(()=>heroGL&&heroGL.drop(.5,.45,1.0),'<.5')
+    .to(heroChars,{yPercent:0,rotate:0,duration:1.4,stagger:.045,ease:'expo.out'},'<.25')
+    .to('.hero-fade',{opacity:1,y:0,duration:1,stagger:.12,ease:'power3.out'},'<.4')
+    .to('.nav',{yPercent:0,opacity:1,duration:1,ease:'power3.out'},'<')
+    .add(()=>{$('#loader')?.remove();document.body.classList.remove('loading');lenis&&lenis.start();ScrollTrigger.refresh();});
+  // Failsafe: if animation frames are paused (background tab, some previewers), never leave the page stuck on the loader.
+  setTimeout(()=>{ if(tl.progress()<1) tl.progress(1); },6000);
+
+  // --- Nav hide on scroll ---
+  let lastY=0;
+  ScrollTrigger.create({start:0,end:'max',onUpdate:self=>{
+    const y=self.scroll(); const nav=$('#nav');
+    nav.classList.toggle('scrolled',y>60);
+    nav.classList.toggle('hide',y>lastY && y>400 && !document.documentElement.classList.contains('menu-open'));
+    lastY=y;
+  }});
+  $('#burger').addEventListener('click',()=>document.documentElement.classList.toggle('menu-open'));
+
+  // --- Hero parallax ---
+  gsap.to('.hero__media',{yPercent:25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.hero__title',{yPercent:-30,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  // Cinematic exit: the hero folds into a rounded frame and the shader dims as you scroll away
+  if(!reduce){
+    gsap.fromTo('.hero',{clipPath:'inset(0% 0% 0% 0% round 0px)'},{clipPath:'inset(0% 2.5% 7% 2.5% round 28px)',ease:'none',
+      scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1,onUpdate:s=>{ if(heroGL) heroGL.state.scroll=s.progress; }}});
+    gsap.to('.hero__foot, .hero__top',{y:-60,opacity:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'30% top',end:'bottom top',scrub:1}});
+  }
+  // Title rows drift against the pointer (depth per row)
+  if(fine && !reduce){
+    const rows=$$('.hero__title .row').map(r=>({d:+r.dataset.depth||1,x:gsap.quickTo(r,'x',{duration:.9,ease:'power3.out'})}));
+    $('.hero').addEventListener('pointermove',e=>{ const nx=e.clientX/innerWidth-.5; rows.forEach(r=>r.x(nx*r.d*-26)); });
+    $('.hero').addEventListener('pointerleave',()=>rows.forEach(r=>r.x(0)));
+  }
+  // Tap / click anywhere on the photo drops a ripple (works on touch too)
+  if(heroGL) $('.hero').addEventListener('pointerdown',e=>{
+    if(e.target.closest('a,button')) return;
+    const r=heroGL.canvas.getBoundingClientRect();
+    heroGL.drop((e.clientX-r.left)/r.width,1-(e.clientY-r.top)/r.height,.9);
+  });
+
+  // --- Marquee with scroll velocity ---
+  const track=$('.marquee__track'); const item=$('.marquee__item');
+  for(let i=0;i<3;i++) track.appendChild(item.cloneNode(true));
+  let xPos=0,dir=-1,speed=1;
+  const w=()=>item.offsetWidth;
+  gsap.ticker.add(()=>{
+    xPos+=dir*speed*(reduce?0:1.1);
+    if(xPos<=-w()) xPos+=w(); if(xPos>0) xPos-=w();
+    gsap.set(track,{x:xPos});
+    speed+= (1-speed)*.06;
+  });
+  ScrollTrigger.create({start:0,end:'max',onUpdate:s=>{
+    dir = s.direction===1?-1:1;
+    speed = 1+Math.min(Math.abs(s.getVelocity())/180,10);
+    gsap.to(track,{skewX:gsap.utils.clamp(-8,8,s.getVelocity()/-300),duration:.4,overwrite:true});
+  }});
+
+  // --- Generic reveals ---
+  $$('.reveal-up').forEach(el=>gsap.from(el,{y:36,opacity:0,filter:'blur(8px)',duration:.95,ease:'power4.out',scrollTrigger:{trigger:el,start:'top 84%',once:true}}));
+  $$('.line-mask>span').forEach(el=>gsap.from(el,{yPercent:105,opacity:0,filter:'blur(8px)',duration:1.1,ease:'power4.out',scrollTrigger:{trigger:el.parentElement,start:'top 84%',once:true}}));
+
+  // --- Image clip reveals + inner parallax ---
+  $$('.img-reveal').forEach(el=>{
+    const img=$('img',el);
+    gsap.fromTo(img,{scale:1.4},{scale:1.1,duration:2,ease:'expo.out',scrollTrigger:{trigger:el,start:'top 85%'}});
+    gsap.fromTo(img,{yPercent:-8},{yPercent:8,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:true}});
+  });
+
+  // --- Story: pinned morning → evening scene ---
+  const story=$('.story'), frames=$$('.frame'), chapters=$$('.chapter'), curNums=$$('.story__cur span');
+  const tints=[[220,160,109],[241,207,166],[196,86,106]];
+  const skyPath=$('#skyDone'), sun=$('#skySun'), skyLen=skyPath.getTotalLength();
+  skyPath.style.strokeDasharray=skyLen;
+  const setSky=p=>{ const pt=skyPath.getPointAtLength(skyLen*p); sun.setAttribute('cx',pt.x.toFixed(1)); sun.setAttribute('cy',pt.y.toFixed(1)); skyPath.style.strokeDashoffset=skyLen*(1-p); };
+  setSky(0);
+  let activeCh=0;
+  const setChapter=i=>{ if(i===activeCh) return; activeCh=i; chapters.forEach((c,k)=>c.classList.toggle('is-active',k===i)); curNums.forEach(s=>s.style.transform=`translateY(${-100*i}%)`); };
+  if(!reduce) gsap.matchMedia().add('(min-width: 961px)',()=>{
+    const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.story__pin',start:'top top',end:'+=260%',pin:true,scrub:1,anticipatePin:1,
+      onUpdate:s=>{
+        const p=s.progress; setSky(p); setChapter(Math.min(2,Math.floor(p*3)));
+        const seg=Math.min(p*2,1.999), i=Math.floor(seg), f=seg-i, a=tints[i], b=tints[i+1];
+        story.style.setProperty('--tint',a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(','));
+      }}});
+    tl.to('.story__bgword',{xPercent:-55,duration:3},0)
+      .to('.story__progress i',{scaleX:1,duration:3},0)
+      .fromTo(frames[0].querySelector('img'),{scale:1.25},{scale:1,duration:1},0)
+      .to(frames[1],{clipPath:'inset(0% 0 0 0)',duration:.7,ease:'power2.inOut'},.65)
+      .to(frames[0],{scale:.9,filter:'brightness(.45)',duration:.7},.65)
+      .fromTo(frames[1].querySelector('img'),{scale:1.35},{scale:1,duration:1.2},.65)
+      .to(frames[2],{clipPath:'inset(0% 0 0 0)',duration:.7,ease:'power2.inOut'},1.65)
+      .to(frames[1],{scale:.9,filter:'brightness(.45)',duration:.7},1.65)
+      .fromTo(frames[2].querySelector('img'),{scale:1.35},{scale:1,duration:1.2},1.65)
+      .to('.story__badge',{rotate:240,duration:3},0);
+    return ()=>{ setChapter(0); story.style.removeProperty('--tint'); };
+  });
+
+  // --- Facts: clock runs from 08h to 22h, pin drops ---
+  const ftl=gsap.timeline({scrollTrigger:{trigger:'.facts',start:'top 80%',once:true}});
+  ftl.fromTo('.clock__h',{rotation:240,svgOrigin:'60 60'},{rotation:660,svgOrigin:'60 60',duration:2.2,ease:'power3.inOut'},.2)
+     .fromTo('.clock__m',{rotation:0,svgOrigin:'60 60'},{rotation:5040,svgOrigin:'60 60',duration:2.2,ease:'power3.inOut'},.2)
+     .from('.pin__drop',{y:-70,opacity:0,duration:1.1,ease:'power4.out'},.4)
+     .from('.pin__shadow',{scale:.2,opacity:0,transformOrigin:'50% 50%',duration:1.1,ease:'power4.out'},.4);
+  $$('.fact').forEach(c=>c.addEventListener('pointermove',e=>{
+    const r=c.getBoundingClientRect(); c.style.setProperty('--x',(e.clientX-r.left)+'px'); c.style.setProperty('--y',(e.clientY-r.top)+'px');
+  }));
+
+  // --- Counters ---
+  $$('.counter').forEach(c=>{
+    const to=parseFloat(c.dataset.to),dec=+c.dataset.dec,pad=c.dataset.pad,o={v:0};
+    gsap.to(o,{v:to,duration:2.2,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 90%'},onUpdate:()=>{
+      let s=o.v.toFixed(dec).replace('.',','); if(pad) s=s.padStart(+pad,'0'); c.textContent=s;
+    }});
+  });
+
+  // --- Menu tabs ---
+  $$('.tab').forEach(t=>t.addEventListener('click',()=>{
+    if(t.classList.contains('active')) return;
+    $$('.tab').forEach(x=>x.classList.toggle('active',x===t));
+    showVisual(t.dataset.tab);
+    const cur=$('.menu__panel.active'), next=$(`.menu__panel[data-panel="${t.dataset.tab}"]`);
+    gsap.to($$('.menu__item',cur),{opacity:0,x:-40,duration:.35,stagger:.04,ease:'power2.in',onComplete:()=>{
+      cur.classList.remove('active'); gsap.set($$('.menu__item',cur),{clearProps:'all'});
+      next.classList.add('active');
+      gsap.from($$('.menu__item',next),{opacity:0,x:60,duration:.9,stagger:.07,ease:'expo.out'});
+      ScrollTrigger.refresh();
+    }});
+  }));
+  gsap.from('.menu__panel.active .menu__item',{opacity:0,y:50,duration:1.1,stagger:.08,ease:'expo.out',scrollTrigger:{trigger:'.menu__list',start:'top 85%'}});
+
+  // --- Gallery: 3D ring turns with scroll, tilts with the pointer ---
+  (function(){
+    const ring=$('#ring'), cards=$$('.rcard',ring), N=cards.length, step=360/N;
+    const names=['Ugođaj','Cappuccino','Zrno','Ledena kafa','Kroasan','Ritual','Topla čokolada','Kafa u društvu'];
+    cards.forEach((c,i)=>c.style.setProperty('--i',i));
+    const st={turn:0,tiltX:0,tiltY:0}, target={tiltX:0,tiltY:0};
+    let front=-1;
+    const idxEl=$('#ringIdx'), nameEl=$('#ringName');
+    function render(){
+      const r=getComputedStyle($('.ringg__stage')).getPropertyValue('--r');
+      const ang=-st.turn*360*(N-1)/N + st.tiltY;
+      ring.style.transform=`translateZ(calc(${r} * -1)) rotateX(${-10+st.tiltX}deg) rotateY(${ang}deg)`;
+      cards.forEach((c,i)=>{
+        const rel=((i*step+ang)%360+540)%360-180;               // -180..180, 0 = facing us
+        const f=Math.cos(rel*Math.PI/180);
+        c.style.filter=`brightness(${(0.28+0.72*Math.max(0,f)).toFixed(3)}) saturate(${(0.6+0.4*Math.max(0,f)).toFixed(3)})`;
+      });
+      const fi=((Math.round(-ang/step)%N)+N)%N;
+      if(fi!==front){
+        front=fi; cards.forEach((c,i)=>c.classList.toggle('is-front',i===fi));
+        idxEl.textContent=String(fi+1).padStart(2,'0');
+        gsap.fromTo(nameEl,{yPercent:60,opacity:0,filter:'blur(6px)'},{yPercent:0,opacity:1,filter:'blur(0px)',duration:.6,ease:'power3.out',overwrite:true});
+        nameEl.textContent=names[fi];
+      }
+    }
+    render();
+    if(!reduce){
+      gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.ringg__pin',start:'top top',end:'+=240%',pin:true,scrub:1.2,anticipatePin:1,invalidateOnRefresh:true}})
+        .to(st,{turn:1,duration:1,onUpdate:render},0)
+        .to('.ringg__bgword',{xPercent:-40,duration:1},0)
+        .to('.ringg__progress i',{scaleX:1,duration:1},0)
+        .fromTo('.ringg__ring',{scale:.82},{scale:1,duration:.25,ease:'power2.out'},0);
+      if(fine){
+        $('.ringg').addEventListener('pointermove',e=>{ target.tiltX=(e.clientY/innerHeight-.5)*-10; target.tiltY=(e.clientX/innerWidth-.5)*16; });
+        $('.ringg').addEventListener('pointerleave',()=>{ target.tiltX=0; target.tiltY=0; });
+        gsap.ticker.add(()=>{
+          const dx=target.tiltX-st.tiltX, dy=target.tiltY-st.tiltY;
+          if(Math.abs(dx)+Math.abs(dy)<0.01) return;
+          st.tiltX+=dx*.08; st.tiltY+=dy*.08; render();
+        });
+      }
+    }
+    addEventListener('resize',render);
+  })();
+
+  // --- Visit: title letters rise, marquee drifts, map opens as a circle from the pin, tilts with the pointer ---
+  gsap.from(visitChars,{yPercent:110,rotate:8,duration:1.3,stagger:.035,ease:'expo.out',scrollTrigger:{trigger:'.visit__title',start:'top 85%',once:true}});
+  gsap.fromTo('.visit__marquee-track',{xPercent:0},{xPercent:-30,ease:'none',scrollTrigger:{trigger:'.visit',start:'top bottom',end:'bottom top',scrub:1}});
+  gsap.from('.clockline',{opacity:0,y:30,filter:'blur(8px)',duration:1,ease:'power4.out',scrollTrigger:{trigger:'.visit__head',start:'top 80%',once:true}});
+  if(!reduce){
+    gsap.fromTo('#map',{clipPath:'circle(0% at 50% 48%)'},{clipPath:'circle(75% at 50% 48%)',ease:'power2.out',
+      scrollTrigger:{trigger:'#map',start:'top 92%',end:'top 35%',scrub:1}});
+    gsap.from('.route',{scale:0,rotate:-180,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'.visit__cta',start:'top 90%',once:true}});
+  }
+  if(fine && !reduce){
+    const mp=$('#map'), rx=gsap.quickTo(mp,'rotationX',{duration:.8,ease:'power3.out'}), ry=gsap.quickTo(mp,'rotationY',{duration:.8,ease:'power3.out'});
+    gsap.set(mp,{transformPerspective:1200});
+    $('.visit').addEventListener('pointermove',e=>{ const r=mp.getBoundingClientRect(); rx(((e.clientY-r.top)/r.height-.5)*-5); ry(((e.clientX-r.left)/r.width-.5)*6); });
+    $('.visit').addEventListener('pointerleave',()=>{ rx(0); ry(0); });
+  }
+
+  // --- Footer big type ---
+  gsap.from(footChars,{yPercent:100,opacity:0,rotateX:-80,duration:1.3,stagger:.04,ease:'expo.out',scrollTrigger:{trigger:'.footer',start:'top 80%'}});
+
+  // --- Cursor ---
+  if(fine){
+    const cur=$('.cursor'),dot=$('.cursor-dot');
+    const cx=gsap.quickTo(cur,'x',{duration:.5,ease:'power3'}),cy=gsap.quickTo(cur,'y',{duration:.5,ease:'power3'});
+    const dx=gsap.quickTo(dot,'x',{duration:.08}),dy=gsap.quickTo(dot,'y',{duration:.08});
+    window.addEventListener('mousemove',e=>{cx(e.clientX);cy(e.clientY);dx(e.clientX);dy(e.clientY);});
+    document.addEventListener('mouseover',e=>{
+      const v=e.target.closest('[data-view]'),h=e.target.closest('[data-hover],a,button,.menu__item');
+      cur.classList.toggle('view',!!v); cur.classList.toggle('hover',!v&&!!h);
+    });
+    // magnetic
+    $$('.magnetic').forEach(b=>{
+      b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.35,y:(e.clientY-r.top-r.height/2)*.45,duration:.6,ease:'power3.out'});});
+      b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:.6,ease:'power3.out'}));
+    });
+  }
+
+  addEventListener('load',()=>ScrollTrigger.refresh());
+  // Failsafe: in previewers that don't scroll the page itself, finish any reveal that can never be reached.
+  setTimeout(()=>{
+    const max=ScrollTrigger.maxScroll(window);
+    ScrollTrigger.getAll().forEach(st=>{ if(!st.vars.scrub && st.animation && st.start>max) st.animation.progress(1); });
+  },7000);
+})();
+</script>
+</body>
+</html>
