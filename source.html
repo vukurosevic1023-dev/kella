@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Avgust — Coffee &amp; Cake Bar, Lion, Beograd</title>
+<meta name="theme-color" content="#110b09">
 <meta name="description" content="Avgust coffee &amp; cake bar — kafa, torte i domaći kolači na Lionu, Bulevar kralja Aleksandra 225, Beograd. Svakog dana 08–22h.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -347,9 +348,147 @@ section{position:relative}
 .to-top{display:inline-flex;align-items:center;gap:10px}
 .to-top:hover{color:var(--gold)}
 
+/* ================= luxury layer ================= */
+:root{--foil:linear-gradient(100deg,#a8703d 0%,#f3d2a2 16%,#c98d57 32%,#fde6c4 50%,#b67a44 66%,#f1cc98 83%,#a8703d 100%)}
+@keyframes foil{from{background-position:0% 50%}to{background-position:200% 50%}}
+.foil,.h2 em,.story__title em,.anatomy__final em,.manifesto__text em .w,.footer__top h4{background:var(--foil);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:foil 9s linear infinite}
+.progress{position:fixed;left:0;top:0;width:100%;height:2px;z-index:70;transform-origin:left;transform:scaleX(0);background:var(--foil);background-size:200% 100%;pointer-events:none}
+
+/* buttons: foil + light sheen */
+.btn::after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,244,228,.5),transparent);transform:skewX(-20deg);transition:left 1s var(--ease);pointer-events:none;z-index:1}
+.btn:hover::after{left:135%}
+.btn--solid{background:var(--foil);background-size:200% 100%;animation:foil 9s linear infinite;border-color:transparent}
+.logo svg{transition:transform 1.2s var(--ease)}
+.logo:hover svg{transform:rotate(-12deg) scale(1.08)}
+
+/* ornament */
+.orn{display:flex;align-items:center;gap:16px;width:min(420px,70%);color:var(--gold)}
+.orn i{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(220,160,109,.6));transform-origin:right}
+.orn i:last-child{background:linear-gradient(90deg,rgba(220,160,109,.6),transparent);transform-origin:left}
+.orn svg{width:12px;height:12px;flex:none}
+
+/* loader */
+.loader__word{font-family:var(--serif);font-weight:300;font-size:clamp(64px,10vw,150px);line-height:1;letter-spacing:.01em;overflow:hidden;padding:0 .05em .1em}
+.loader__word .char{background:var(--foil);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 4s linear infinite}
+.loader__mark{width:84px;height:84px;margin:0 auto 18px}
+.loader__corner{position:absolute;bottom:34px;z-index:2;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream-dim);line-height:1.9}
+.loader__corner--l{left:var(--gutter)}
+.loader__corner--r{right:var(--gutter);font-family:var(--serif);font-size:clamp(34px,4vw,54px);letter-spacing:0;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.loader__corner--r small{font-size:.4em;margin-left:4px;color:var(--cream-dim)}
+
+/* hero 3D stage */
+.hero__stage{position:absolute;right:max(3vw,32px);top:17vh;width:min(38vw,600px);height:58vh;pointer-events:none}
+.hero__stage::before{content:"";position:absolute;left:50%;top:52%;width:92%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(220,160,109,.26),rgba(196,86,106,.07) 42%,transparent 68%);animation:breathe 6s ease-in-out infinite}
+.hero__stage::after{content:"";position:absolute;left:50%;top:52%;width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(220,160,109,.16);
+  -webkit-mask:linear-gradient(transparent,#000 30%,#000 70%,transparent);mask:linear-gradient(transparent,#000 30%,#000 70%,transparent);animation:spin 40s linear infinite}
+@keyframes breathe{50%{opacity:.6;transform:translate(-50%,-50%) scale(1.06)}}
+.hero3d{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.6s var(--ease)}
+.hero3d.on{opacity:1}
+
+/* manifesto: words light up as you scroll */
+.manifesto{position:relative;overflow:hidden;padding:clamp(110px,20vh,220px) var(--gutter) clamp(40px,8vh,90px);text-align:center;
+  background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(220,160,109,.07),transparent 70%)}
+.manifesto__inner{max-width:1180px;margin:0 auto;display:grid;justify-items:center;gap:clamp(26px,4vh,40px)}
+.manifesto__text{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.4vw,68px);line-height:1.16;letter-spacing:-.012em}
+.manifesto__text .w{opacity:.13}
+.manifesto__text em{font-style:italic}
+.mimg{display:inline-block;width:1.75em;height:.92em;margin:0 .14em;border-radius:100px;overflow:hidden;vertical-align:-.1em;transform:scale(0);box-shadow:0 10px 30px -10px rgba(0,0,0,.8),inset 0 0 0 1px rgba(241,207,166,.25)}
+.mimg img{transform:scale(1.25)}
+.manifesto__mark{width:54px;height:54px;fill:none;stroke:var(--gold);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* anatomy: exploded cake */
+.anatomy{position:relative;background:var(--ink)}
+.anatomy__pin{position:relative;height:100vh;min-height:620px;overflow:hidden;
+  background:radial-gradient(ellipse 50% 45% at 50% 58%,rgba(220,160,109,.13),transparent 70%)}
+.anatomy__gl{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}
+.anatomy__bgword{position:absolute;left:0;top:54%;transform:translateY(-50%);white-space:nowrap;pointer-events:none;
+  font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(130px,22vw,360px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(220,160,109,.12);will-change:transform}
+.anatomy__head{position:absolute;z-index:3;left:var(--gutter);top:clamp(96px,14vh,150px);max-width:380px;transition:opacity .6s var(--ease)}
+.anatomy__head .h2{margin:18px 0 16px;font-size:clamp(44px,5.4vw,86px)}
+.anatomy__head p{font-size:14px;max-width:300px}
+.anatomy__labels{list-style:none;position:absolute;inset:0;z-index:3;pointer-events:none}
+.anatomy__label{position:absolute;left:0;top:0;will-change:transform}
+.anatomy__label::before{content:"";position:absolute;right:calc(100% + 12px);top:0;width:var(--len,60px);height:1px;
+  background:linear-gradient(90deg,var(--gold),rgba(220,160,109,.3));transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease)}
+.anatomy__label::after{content:"";position:absolute;right:calc(100% + 9px + var(--len,60px));top:-3px;width:7px;height:7px;border-radius:50%;
+  background:var(--gold-soft);box-shadow:0 0 0 4px rgba(220,160,109,.18),0 0 14px rgba(220,160,109,.9);transform:scale(0);transition:transform .5s var(--ease)}
+.anatomy__label .al{display:grid;gap:4px;transform:translateY(-50%);opacity:0;translate:18px 0;filter:blur(6px);transition:opacity .7s var(--ease) .2s,translate .9s var(--ease) .2s,filter .7s var(--ease) .2s}
+.anatomy__label .al>span{font-size:10px;letter-spacing:.32em;color:var(--gold)}
+.anatomy__label strong{font-family:var(--serif);font-weight:400;font-size:clamp(20px,1.9vw,30px);line-height:1.05;white-space:nowrap}
+.anatomy__label small{font-size:12px;color:var(--cream-dim);letter-spacing:.04em}
+.anatomy__label.on::before{transform:scaleX(1)}
+.anatomy__label.on::after{transform:scale(1)}
+.anatomy__label.on .al{opacity:1;translate:0 0;filter:blur(0)}
+.anatomy__final{position:absolute;z-index:3;right:var(--gutter);bottom:clamp(80px,13vh,130px);display:grid;justify-items:end;gap:16px;text-align:right;
+  opacity:0;transform:translateY(34px);filter:blur(8px);pointer-events:none;transition:opacity .9s var(--ease),transform 1s var(--ease),filter .9s var(--ease)}
+.anatomy__final strong{font-family:var(--serif);font-weight:300;font-size:clamp(38px,4.4vw,72px);line-height:.95;letter-spacing:-.015em}
+.anatomy__final strong em{font-style:italic}
+.anatomy.is-final .anatomy__label::before,.anatomy.is-final .anatomy__label::after{transform:scale(0)}
+.anatomy.is-final .anatomy__label .al{opacity:0;filter:blur(6px)}
+.anatomy.is-final .anatomy__final{opacity:1;transform:none;filter:none;pointer-events:auto}
+.anatomy__hint{position:absolute;z-index:3;left:50%;bottom:58px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--cream-dim);transition:opacity .6s}
+.anatomy__hint i{position:relative;width:22px;height:34px;border:1px solid rgba(220,160,109,.6);border-radius:14px}
+.anatomy__hint i::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--gold);animation:wheel 1.8s var(--ease) infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}80%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+.anatomy.is-moving .anatomy__hint{opacity:0}
+.anatomy__progress{position:absolute;z-index:3;left:var(--gutter);right:var(--gutter);bottom:34px;height:1px;background:var(--line)}
+.anatomy__progress i{position:absolute;inset:0;background:var(--foil);background-size:200% 100%;transform-origin:left;transform:scaleX(0)}
+.anatomy.no-gl .anatomy__pin{height:auto;min-height:0;padding:120px var(--gutter) 80px}
+.anatomy.no-gl .anatomy__head{position:relative;left:auto;top:auto;max-width:none}
+.anatomy.no-gl .anatomy__labels{position:relative;display:grid;gap:22px;margin-top:40px}
+.anatomy.no-gl .anatomy__label{position:relative;transform:none!important}
+.anatomy.no-gl .anatomy__label::before,.anatomy.no-gl .anatomy__label::after,.anatomy.no-gl .anatomy__hint,.anatomy.no-gl .anatomy__progress,.anatomy.no-gl .anatomy__bgword{display:none}
+.anatomy.no-gl .anatomy__label .al{transform:none;opacity:1;translate:none;filter:none}
+.anatomy.no-gl .anatomy__final{position:relative;right:auto;bottom:auto;opacity:1;transform:none;filter:none;justify-items:start;text-align:left;margin-top:40px;pointer-events:auto}
+
+/* menu: signature tag */
+.menu__tag{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px;margin-left:14px;padding:5px 11px;border:1px solid rgba(220,160,109,.55);border-radius:100px;
+  font-family:var(--sans);font-style:normal;font-size:9px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-soft);vertical-align:.5em}
+.menu__tag::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,240,220,.45),transparent);transform:skewX(-20deg);animation:sheen 3.6s var(--ease) infinite}
+@keyframes sheen{0%,55%{left:-60%}100%{left:140%}}
+.menu__item--sig .menu__price{background:var(--foil);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 9s linear infinite}
+
+/* marquee: second, outlined row running the other way */
+.marquee__track--out{margin-top:6px}
+.marquee__track--out .marquee__item{color:transparent;-webkit-text-stroke:1px rgba(241,207,166,.35);font-style:italic}
+.marquee__track--out .marquee__item em{color:transparent;-webkit-text-stroke:1px rgba(220,160,109,.7)}
+
+/* footer */
+.footer{position:relative;background:radial-gradient(ellipse 70% 60% at 50% 110%,rgba(220,160,109,.12),transparent 70%)}
+.footer__top{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(28px,4vw,60px);padding-bottom:clamp(50px,9vh,90px);margin-bottom:clamp(40px,7vh,70px);border-bottom:1px solid var(--line)}
+.footer__lead svg{width:46px;height:46px;fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:18px}
+.footer__lead p{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2vw,30px);line-height:1.25;max-width:340px}
+.footer__top h4{display:inline-block;font-weight:500;font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin-bottom:16px}
+.footer__col p{font-size:14px;line-height:1.9;color:var(--cream-dim)}
+.footer__col a{position:relative;color:var(--cream)}
+.footer__col a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .6s var(--ease)}
+.footer__col a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* mobile call bar */
+.callbar{position:fixed;left:16px;right:16px;bottom:14px;z-index:55;display:none;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-radius:100px;
+  background:rgba(17,11,9,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(220,160,109,.45);box-shadow:0 14px 40px -12px rgba(0,0,0,.8);
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;transform:translateY(160%);transition:transform .7s var(--ease)}
+.callbar.show{transform:none}
+.callbar i{width:8px;height:8px;border-radius:50%;background:#6fbf73;animation:pulse 2s infinite}
+.callbar span{flex:1}
+.callbar svg{width:16px;height:16px;color:var(--gold)}
+
 /* responsive */
 @media (max-width:960px){
   .nav__links,.nav .btn{display:none}
+  .hero__stage,.hero3d{display:none}
+  .callbar{display:flex}
+  .footer__top{grid-template-columns:1fr 1fr}
+  .footer__lead{grid-column:1/-1}
+  .anatomy__head{right:var(--gutter);max-width:none;top:92px}
+  .anatomy__head .h2{margin:12px 0 8px}
+  .anatomy__head p{display:none}
+  .anatomy.is-final .anatomy__head{opacity:0}
+  .anatomy__final{top:100px;bottom:auto;right:auto;left:var(--gutter);justify-items:start;text-align:left}
+  .anatomy__label strong{font-size:16px}
+  .anatomy__label small{display:none}
+  .anatomy__label .al>span{font-size:9px}
   .burger{display:block}
   .visit__grid{grid-template-columns:1fr}
   .visit__head{grid-template-columns:1fr}
@@ -371,6 +510,10 @@ section{position:relative}
 }
 @media (max-width:640px){
   .facts{grid-template-columns:1fr}
+  .footer__top{grid-template-columns:1fr}
+  .manifesto__text{font-size:clamp(28px,8vw,40px)}
+  .menu__tag{margin:6px 0 0;display:table}
+  .footer{padding-bottom:100px}
   .logo small{display:none}
   .hero__title .row--sub{font-size:.42em}
   .ringg__head{right:var(--gutter);max-width:none}
@@ -429,11 +572,14 @@ section{position:relative}
       <path d="M46 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/>
       <path d="M51 3v2.5m0 17v2.5m11-11h-2.5m-17 0H40m18.8-7.8-1.8 1.8m-12 12-1.8 1.8m15.6 0-1.8-1.8m-12-12-1.8-1.8"/>
     </svg>
-    <div class="loader__count"><span id="count">0</span></div>
-    <div class="loader__label">Avgust · coffee &amp; cake bar</div>
+    <div class="loader__word" aria-hidden="true">Avgust</div>
+    <div class="loader__label">Coffee &amp; cake bar · Lion</div>
   </div>
+  <div class="loader__corner loader__corner--l">Beograd — Lion<br>Bulevar kralja Aleksandra 225</div>
+  <div class="loader__corner loader__corner--r"><span id="count">0</span><small>%</small></div>
   <div class="loader__bar"></div>
 </div>
+<div class="progress" aria-hidden="true"></div>
 
 <!-- Nav -->
 <header class="nav" id="nav">
@@ -443,6 +589,7 @@ section{position:relative}
   </a>
   <ul class="nav__links">
     <li><a href="#prica" data-hover><span>Priča</span><span>Priča</span></a></li>
+    <li><a href="#torta" data-hover><span>Torta</span><span>Torta</span></a></li>
     <li><a href="#meni" data-hover><span>Meni</span><span>Meni</span></a></li>
     <li><a href="#galerija" data-hover><span>Galerija</span><span>Galerija</span></a></li>
     <li><a href="#posetite" data-hover><span>Posetite nas</span><span>Posetite nas</span></a></li>
@@ -454,6 +601,7 @@ section{position:relative}
 </header>
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobilni meni">
   <a href="#prica">Priča</a>
+  <a href="#torta">Torta</a>
   <a href="#meni">Meni</a>
   <a href="#galerija">Galerija</a>
   <a href="#posetite">Posetite nas</a>
@@ -467,6 +615,7 @@ section{position:relative}
     <div class="hero__media" data-speed="0.4">
       <img src="assets/img/hero.jpg" alt="Topao enterijer kafića sa prigušenim svetlom">
     </div>
+    <div class="hero__stage" id="heroStage" aria-hidden="true"></div>
     <div class="hero__side hero-fade" aria-hidden="true">Coffee &amp; cake bar — Lion — Beograd</div>
     <div class="hero__hint hero-fade" aria-hidden="true"><span></span>Pomerite kursor preko kafe</div>
     <div class="hero__content">
@@ -508,7 +657,26 @@ section{position:relative}
         <span>Lion</span><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
       </div>
     </div>
+    <div class="marquee__track marquee__track--out">
+      <div class="marquee__item">
+        <span>Cheesecake</span><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <em>Flat white</em><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <span>Makaronsi</span><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <em>Kroasan</em><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+        <span>Topla čokolada</span><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"/></svg>
+      </div>
+    </div>
   </div>
+
+  <!-- Manifesto: words light up with the scroll -->
+  <section class="manifesto" id="manifest">
+    <div class="manifesto__inner">
+      <div class="orn" aria-hidden="true"><i></i><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor"/></svg><i></i></div>
+      <span class="eyebrow">Manifest</span>
+      <p class="manifesto__text">Verujemo da je dobar dan zapravo niz malih zadovoljstava <span class="mimg"><img src="assets/img/m-kafa.jpg" alt=""></span> šoljica savršeno izvučenog espressa, parče torte koje se topi <span class="mimg"><img src="assets/img/m-slatko.jpg" alt=""></span> i sto uz prozor na kom vreme teče sporije <span class="mimg"><img src="assets/img/g2.jpg" alt=""></span> — zato je kod nas <em>avgust</em> cele godine.</p>
+      <svg class="manifesto__mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#emblem"/></svg>
+    </div>
+  </section>
 
   <!-- Story: pinned "one day on the corner" scene (morning → day → evening) -->
   <section class="story" id="prica">
@@ -603,6 +771,32 @@ section{position:relative}
     </div>
   </section>
 
+  <!-- Anatomy: exploded view of the signature cake, driven by scroll -->
+  <section class="anatomy" id="torta">
+    <div class="anatomy__pin">
+      <div class="anatomy__bgword" aria-hidden="true">Torta Avgust · Torta Avgust ·</div>
+      <div class="anatomy__head">
+        <span class="eyebrow">Potpis kuće</span>
+        <h2 class="h2"><span class="line-mask"><span>Anatomija</span></span><span class="line-mask"><span><em>jedne torte.</em></span></span></h2>
+        <p class="muted">Skrolujte i rastavite tortu Avgust sloj po sloj — svaki ima svoj razlog.</p>
+      </div>
+      <ol class="anatomy__labels">
+        <li class="anatomy__label" data-layer="6" data-at="0.1"><div class="al"><span>05</span><strong>Jagode &amp; krem ruže</strong><small>i listići jestivog zlata</small></div></li>
+        <li class="anatomy__label" data-layer="5" data-at="0.28"><div class="al"><span>04</span><strong>Ganaš glazura</strong><small>tamna čokolada, sjajna i tanka</small></div></li>
+        <li class="anatomy__label" data-layer="3" data-at="0.46"><div class="al"><span>03</span><strong>Krem od jagode</strong><small>svež, lagan, blago kiselkast</small></div></li>
+        <li class="anatomy__label" data-layer="1" data-at="0.64"><div class="al"><span>02</span><strong>Krem od maskarponea</strong><small>svilenkast, sa vanilom</small></div></li>
+        <li class="anatomy__label" data-layer="0" data-at="0.82"><div class="al"><span>01</span><strong>Vanila biskvit</strong><small>tri sloja, mekan i vazdušast</small></div></li>
+      </ol>
+      <div class="anatomy__final">
+        <span class="eyebrow">Torta Avgust</span>
+        <strong>Sastavljena<br><em>s pažnjom.</em></strong>
+        <a href="#meni" class="btn magnetic" data-hover>Pogledaj torte <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="anatomy__hint" aria-hidden="true"><i></i>Skrolujte</div>
+      <div class="anatomy__progress" aria-hidden="true"><i></i></div>
+    </div>
+  </section>
+
   <!-- Menu -->
   <section class="menu wrap" id="meni">
     <div class="section-head">
@@ -630,10 +824,11 @@ section{position:relative}
     </div>
     <div class="menu__panel" data-panel="torte">
       <ul class="menu__list">
-        <li class="menu__item"><span class="menu__idx">01</span><span class="menu__name">Čokoladna torta<span class="menu__desc">Tamna čokolada, gust ganache</span></span><span class="menu__price">380<small>RSD</small></span></li>
-        <li class="menu__item"><span class="menu__idx">02</span><span class="menu__name">Cheesecake<span class="menu__desc">Kremast, sa prelivom od malina</span></span><span class="menu__price">390<small>RSD</small></span></li>
-        <li class="menu__item"><span class="menu__idx">03</span><span class="menu__name">Plazma torta<span class="menu__desc">Domaći klasik, kao kod bake</span></span><span class="menu__price">350<small>RSD</small></span></li>
-        <li class="menu__item"><span class="menu__idx">04</span><span class="menu__name">Torta dana<span class="menu__desc">Pitajte šta je danas u vitrini</span></span><span class="menu__price">360<small>RSD</small></span></li>
+        <li class="menu__item menu__item--sig"><span class="menu__idx">01</span><span class="menu__name">Torta Avgust<span class="menu__tag">Potpis kuće</span><span class="menu__desc">Vanila biskvit, maskarpone, krem od jagode, ganaš</span></span><span class="menu__price">420<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">02</span><span class="menu__name">Čokoladna torta<span class="menu__desc">Tamna čokolada, gust ganache</span></span><span class="menu__price">380<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">03</span><span class="menu__name">Cheesecake<span class="menu__desc">Kremast, sa prelivom od malina</span></span><span class="menu__price">390<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">04</span><span class="menu__name">Plazma torta<span class="menu__desc">Domaći klasik, kao kod bake</span></span><span class="menu__price">350<small>RSD</small></span></li>
+        <li class="menu__item"><span class="menu__idx">05</span><span class="menu__name">Torta dana<span class="menu__desc">Pitajte šta je danas u vitrini</span></span><span class="menu__price">360<small>RSD</small></span></li>
       </ul>
     </div>
     <div class="menu__panel" data-panel="kolaci">
@@ -764,13 +959,22 @@ section{position:relative}
 </main>
 
 <footer class="footer">
+  <div class="footer__inner">
+  <div class="footer__top">
+    <div class="footer__lead"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#emblem"/></svg><p>Coffee &amp; cake bar na Lionu. Kafa je skuvana — torta vas čeka.</p></div>
+    <div class="footer__col"><h4>Adresa</h4><p>Bulevar kralja Aleksandra 225<br>11120 Beograd — Lion</p></div>
+    <div class="footer__col"><h4>Radno vreme</h4><p>Ponedeljak — Nedelja<br>08:00 — 22:00</p></div>
+    <div class="footer__col"><h4>Kontakt</h4><p><a href="tel:+381621110321">062 111 0321</a><br><a href="https://www.instagram.com/kafeterija.avgust/" target="_blank" rel="noopener">@kafeterija.avgust</a></p></div>
+  </div>
   <div class="footer__big split-foot" aria-label="Avgust coffee &amp; cake bar">Av<em>gust</em><small>coffee &amp; cake</small></div>
   <div class="footer__bottom">
     <span>© <span id="yr"></span> Avgust coffee &amp; cake bar · Bulevar kralja Aleksandra 225, Beograd</span>
     <span>Fotografije: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> · 3D predmeti izrađeni u Three.js</span>
     <a href="#top" class="to-top" data-hover>Nazad na vrh ↑</a>
   </div>
+  </div>
 </footer>
+<a class="callbar" href="tel:+381621110321" aria-label="Pozovite Avgust: 062 111 0321"><i></i><span>Pozovite · 062 111 0321</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
 
 <script src="assets/js/gsap.min.js"></script>
 <script src="assets/js/ScrollTrigger.min.js"></script>
@@ -778,6 +982,7 @@ section{position:relative}
 <script src="assets/js/three.min.js"></script>
 <script src="assets/js/menu3d.js"></script>
 <script src="assets/js/hero-gl.js"></script>
+<script src="assets/js/anatomy3d.js"></script>
 <script>
 (function(){
   const $ = (s,c=document)=>c.querySelector(s);
@@ -874,12 +1079,21 @@ section{position:relative}
   function showVisual(key){ if(menu3D) menu3D.show(key); }
   // Hero: photo through a WebGL coffee-surface ripple shader (static <img> stays as fallback)
   const heroGL = window.initHeroGL ? window.initHeroGL({host:$('.hero__media'),img:$('.hero__media img'),reduce}) : null;
-  window.__menu3D = menu3D; window.__heroGL = heroGL; // handy for debugging in the console
+  // Hero: floating 3D slice of cake (desktop only)
+  const hero3D = (window.initFloat3D && matchMedia('(min-width: 961px)').matches)
+    ? window.initFloat3D({section:$('.hero'),stage:$('#heroStage'),fine,reduce,scene:'hero',autoShow:false,className:'hero3d'}) : null;
+  // Anatomy: exploded cake driven by scroll
+  const anat = window.initCakeAnatomy ? window.initCakeAnatomy({host:$('.anatomy__pin'),reduce}) : null;
+  if(!anat) $('.anatomy').classList.add('no-gl');
+  window.__menu3D = menu3D; window.__heroGL = heroGL; window.__hero3D = hero3D; window.__anat = anat; // handy for debugging in the console
 
   // No GSAP? Show everything statically.
   if(!window.gsap || !window.ScrollTrigger){
     document.body.classList.remove('loading'); $('#loader').remove();
     $$('.counter').forEach(c=>c.textContent=c.dataset.pad?c.dataset.to.padStart(2,'0'):c.dataset.to.replace('.',','));
+    if(hero3D){ hero3D.show('hero'); $('.hero3d').classList.add('on'); }
+    if(anat){ anat.setProgress(.5); $$('.anatomy__label').forEach(l=>l.classList.add('on')); }
+    $$('.manifesto__text .mimg').forEach(m=>m.style.transform='none');
     $$('.tab').forEach(t=>t.addEventListener('click',()=>{
       $$('.tab').forEach(x=>x.classList.toggle('active',x===t));
       $$('.menu__panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===t.dataset.tab));
@@ -905,14 +1119,21 @@ section{position:relative}
     lenis?lenis.scrollTo(t===0?0:t.getBoundingClientRect().top+window.scrollY,{duration:1.6}):(t===0?scrollTo({top:0,behavior:'smooth'}):t.scrollIntoView({behavior:'smooth'}));
   }));
 
-  // --- Prepare splits ---
-  const heroChars=$$('.hero__title .split').flatMap(splitChars);
+  // --- Prepare splits (original markup is restored afterwards so the gold foil can run over whole words) ---
+  const keep=els=>{ const html=els.map(e=>e.innerHTML); return ()=>{ els.forEach((e,i)=>e.innerHTML=html[i]); els.forEach(e=>$$('em',e).forEach(m=>m.classList.add('foil'))); }; };
+  const heroRows=$$('.hero__title .split'), restoreHero=keep(heroRows);
+  const footEl=[$('.split-foot')], restoreFoot=keep(footEl);
+  const visitRows=$$('.split-v'), restoreVisit=keep(visitRows);
+  const heroChars=heroRows.flatMap(splitChars);
   const footChars=splitChars($('.split-foot'));
-  const visitChars=$$('.split-v').flatMap(splitChars);
+  const visitChars=visitRows.flatMap(splitChars);
+  const loaderChars=splitChars($('.loader__word'));
 
   gsap.set(heroChars,{yPercent:110,rotate:6});
   gsap.set('.hero-fade',{opacity:0,y:30});
   gsap.set('.nav',{yPercent:-100,opacity:0});
+  gsap.set(loaderChars,{yPercent:120,rotate:8});
+  gsap.set('.loader__corner',{opacity:0,y:14});
 
   // --- Preloader ---
   const loaderPaths=$$('#loader path');
@@ -920,16 +1141,20 @@ section{position:relative}
   const counter={v:0};
   const tl=gsap.timeline({defaults:{ease:'expo.inOut'}});
   tl.to(loaderPaths,{strokeDashoffset:0,duration:reduce?.2:2,stagger:.12,ease:'power2.inOut'},0)
+    .to(loaderChars,{yPercent:0,rotate:0,duration:reduce?.2:1.3,stagger:.07,ease:'expo.out'},.3)
+    .to('.loader__corner',{opacity:1,y:0,duration:.8,stagger:.1,ease:'power3.out'},.2)
     .to(counter,{v:100,duration:reduce?.2:2.2,ease:'power3.inOut',onUpdate:()=>{$('#count').textContent=Math.round(counter.v)}},0)
     .to('.loader__bar',{width:'100%',duration:reduce?.2:2.2,ease:'power3.inOut'},0)
-    .to('.loader__inner',{opacity:0,y:-30,duration:.6,ease:'power2.in'})
+    .to('.loader__inner',{opacity:0,y:-30,filter:'blur(10px)',duration:.6,ease:'power2.in'})
+    .to('.loader__corner',{opacity:0,duration:.4},'<')
     .to('.loader__panel--t',{yPercent:-100,duration:1.1},'-=.1')
     .to('.loader__panel--b',{yPercent:100,duration:1.1},'<')
     .set('.loader',{background:'transparent'},'<')
     .from('.hero__media img',{scale:1.5,duration:2.2,ease:'expo.out'},'<')
     .fromTo(heroGL?heroGL.state:{},{zoom:1.5},{zoom:1.15,duration:2.2,ease:'expo.out'},'<')
     .add(()=>heroGL&&heroGL.drop(.5,.45,1.0),'<.5')
-    .to(heroChars,{yPercent:0,rotate:0,duration:1.4,stagger:.045,ease:'expo.out'},'<.25')
+    .to(heroChars,{yPercent:0,rotate:0,duration:1.4,stagger:.045,ease:'expo.out',onComplete:restoreHero},'<.25')
+    .add(()=>{ if(hero3D){ hero3D.show('hero'); $('.hero3d').classList.add('on'); } },'<.2')
     .to('.hero-fade',{opacity:1,y:0,duration:1,stagger:.12,ease:'power3.out'},'<.4')
     .to('.nav',{yPercent:0,opacity:1,duration:1,ease:'power3.out'},'<')
     .add(()=>{$('#loader')?.remove();document.body.classList.remove('loading');lenis&&lenis.start();ScrollTrigger.refresh();});
@@ -937,11 +1162,13 @@ section{position:relative}
   setTimeout(()=>{ if(tl.progress()<1) tl.progress(1); },6000);
 
   // --- Nav hide on scroll ---
-  let lastY=0;
+  let lastY=0; const callbar=$('.callbar');
+  gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.3}});
   ScrollTrigger.create({start:0,end:'max',onUpdate:self=>{
     const y=self.scroll(); const nav=$('#nav');
     nav.classList.toggle('scrolled',y>60);
     nav.classList.toggle('hide',y>lastY && y>400 && !document.documentElement.classList.contains('menu-open'));
+    callbar.classList.toggle('show', y>innerHeight*.8 && y<ScrollTrigger.maxScroll(window)-innerHeight*.6);
     lastY=y;
   }});
   $('#burger').addEventListener('click',()=>document.documentElement.classList.toggle('menu-open'));
@@ -949,6 +1176,7 @@ section{position:relative}
   // --- Hero parallax ---
   gsap.to('.hero__media',{yPercent:25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
   gsap.to('.hero__title',{yPercent:-30,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('#heroStage',{yPercent:-22,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
   // Cinematic exit: the hero folds into a rounded frame and the shader dims as you scroll away
   if(!reduce){
     gsap.fromTo('.hero',{clipPath:'inset(0% 0% 0% 0% round 0px)'},{clipPath:'inset(0% 2.5% 7% 2.5% round 28px)',ease:'none',
@@ -969,14 +1197,20 @@ section{position:relative}
   });
 
   // --- Marquee with scroll velocity ---
-  const track=$('.marquee__track'); const item=$('.marquee__item');
-  for(let i=0;i<3;i++) track.appendChild(item.cloneNode(true));
-  let xPos=0,dir=-1,speed=1;
-  const w=()=>item.offsetWidth;
+  const tracks=$$('.marquee__track').map((track,k)=>{
+    const item=$('.marquee__item',track);
+    for(let i=0;i<3;i++) track.appendChild(item.cloneNode(true));
+    return {track,item,x:k?-item.offsetWidth/2:0,k:k?-.7:1};
+  });
+  const track=tracks.map(t=>t.track);
+  let dir=-1,speed=1;
   gsap.ticker.add(()=>{
-    xPos+=dir*speed*(reduce?0:1.1);
-    if(xPos<=-w()) xPos+=w(); if(xPos>0) xPos-=w();
-    gsap.set(track,{x:xPos});
+    tracks.forEach(t=>{
+      const w=t.item.offsetWidth;
+      t.x+=dir*t.k*speed*(reduce?0:1.1);
+      if(t.x<=-w) t.x+=w; if(t.x>0) t.x-=w;
+      gsap.set(t.track,{x:t.x});
+    });
     speed+= (1-speed)*.06;
   });
   ScrollTrigger.create({start:0,end:'max',onUpdate:s=>{
@@ -1034,6 +1268,35 @@ section{position:relative}
   $$('.fact').forEach(c=>c.addEventListener('pointermove',e=>{
     const r=c.getBoundingClientRect(); c.style.setProperty('--x',(e.clientX-r.left)+'px'); c.style.setProperty('--y',(e.clientY-r.top)+'px');
   }));
+
+  if(fine && !reduce) $$('.fact').forEach(c=>{
+    gsap.set(c,{transformPerspective:900});
+    const rx=gsap.quickTo(c,'rotationX',{duration:.7,ease:'power3.out'}), ry=gsap.quickTo(c,'rotationY',{duration:.7,ease:'power3.out'});
+    c.addEventListener('pointermove',e=>{ const r=c.getBoundingClientRect(); rx(((e.clientY-r.top)/r.height-.5)*-9); ry(((e.clientX-r.left)/r.width-.5)*11); });
+    c.addEventListener('pointerleave',()=>{ rx(0); ry(0); });
+  });
+
+  // --- Manifesto: word by word, little photo pills pop in place ---
+  (function(){
+    const el=$('.manifesto__text'); splitWords(el);
+    const tokens=$$('.w, .mimg',el);
+    const mt=gsap.timeline({scrollTrigger:{trigger:el,start:'top 78%',end:'bottom 42%',scrub:.6}});
+    tokens.forEach((t,i)=>mt.to(t,t.classList.contains('mimg')?{scale:1,duration:1.4,ease:'back.out(2)'}:{opacity:1,duration:1},i*.45));
+    gsap.from('.manifesto .orn i',{scaleX:0,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'.manifesto',start:'top 75%',once:true}});
+    gsap.from('.manifesto__mark',{rotate:-90,scale:.4,opacity:0,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'.manifesto__mark',start:'top 92%',once:true}});
+  })();
+
+  // --- Anatomy: pinned exploded cake ---
+  if(anat){
+    const sec=$('.anatomy');
+    if(reduce){ anat.setProgress(.5); $$('.anatomy__label').forEach(l=>l.classList.add('on')); }
+    else {
+      gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.anatomy__pin',start:'top top',end:'+=320%',pin:true,scrub:true,anticipatePin:1,
+        onUpdate:s=>{ const p=s.progress; anat.setProgress(p); sec.classList.toggle('is-moving',p>.03); sec.classList.toggle('is-final',p>.88); }}})
+        .to('.anatomy__progress i',{scaleX:1,duration:1},0)
+        .fromTo('.anatomy__bgword',{xPercent:0},{xPercent:-45,duration:1},0);
+    }
+  }
 
   // --- Counters ---
   $$('.counter').forEach(c=>{
@@ -1104,7 +1367,7 @@ section{position:relative}
   })();
 
   // --- Visit: title letters rise, marquee drifts, map opens as a circle from the pin, tilts with the pointer ---
-  gsap.from(visitChars,{yPercent:110,rotate:8,duration:1.3,stagger:.035,ease:'expo.out',scrollTrigger:{trigger:'.visit__title',start:'top 85%',once:true}});
+  gsap.from(visitChars,{yPercent:110,rotate:8,duration:1.3,stagger:.035,ease:'expo.out',onComplete:restoreVisit,scrollTrigger:{trigger:'.visit__title',start:'top 85%',once:true}});
   gsap.fromTo('.visit__marquee-track',{xPercent:0},{xPercent:-30,ease:'none',scrollTrigger:{trigger:'.visit',start:'top bottom',end:'bottom top',scrub:1}});
   gsap.from('.clockline',{opacity:0,y:30,filter:'blur(8px)',duration:1,ease:'power4.out',scrollTrigger:{trigger:'.visit__head',start:'top 80%',once:true}});
   if(!reduce){
@@ -1120,7 +1383,23 @@ section{position:relative}
   }
 
   // --- Footer big type ---
-  gsap.from(footChars,{yPercent:100,opacity:0,rotateX:-80,duration:1.3,stagger:.04,ease:'expo.out',scrollTrigger:{trigger:'.footer',start:'top 80%'}});
+  gsap.from(footChars,{yPercent:100,opacity:0,rotateX:-80,duration:1.3,stagger:.04,ease:'expo.out',onComplete:restoreFoot,scrollTrigger:{trigger:'.footer__big',start:'top 92%',once:true}});
+  gsap.from('.footer__top>*',{y:40,opacity:0,duration:1.1,stagger:.1,ease:'power4.out',scrollTrigger:{trigger:'.footer__top',start:'top 88%',once:true}});
+  if(!reduce) gsap.fromTo('.footer__inner',{yPercent:-18},{yPercent:0,ease:'none',scrollTrigger:{trigger:'.footer',start:'top bottom',end:'bottom bottom',scrub:true}});
+
+  // --- Sections open like curtains ---
+  if(!reduce) ['.menu','.visit'].forEach(sel=>gsap.fromTo(sel,{clipPath:'inset(0% 3.5% 0% 3.5% round 40px)'},{clipPath:'inset(0% 0% 0% 0% round 0px)',ease:'none',
+    scrollTrigger:{trigger:sel,start:'top bottom',end:'top 25%',scrub:true}}));
+
+  // --- Eyebrow labels decode themselves ---
+  function scramble(el){
+    const final=el.textContent, pool='ABCDEFGHIJKLMNOPRSTUVZ·—*+';
+    let f=0; const iv=setInterval(()=>{
+      el.textContent=[...final].map((c,i)=>i<f/2||c===' '?c:pool[Math.random()*pool.length|0]).join('');
+      if(++f/2>final.length){ clearInterval(iv); el.textContent=final; }
+    },26);
+  }
+  if(!reduce) $$('.eyebrow').forEach(el=>{ if(el.closest('.hero')) return; ScrollTrigger.create({trigger:el,start:'top 90%',once:true,onEnter:()=>scramble(el)}); });
 
   // --- Cursor ---
   if(fine){
@@ -1139,6 +1418,7 @@ section{position:relative}
     });
   }
 
+  ScrollTrigger.sort();
   addEventListener('load',()=>ScrollTrigger.refresh());
   // Failsafe: in previewers that don't scroll the page itself, finish any reveal that can never be reached.
   setTimeout(()=>{

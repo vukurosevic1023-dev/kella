@@ -307,24 +307,58 @@ window.initFloat3D = function ({ section, stage, fine, reduce, scene: which = 'm
     return g;
   }
   // slice of layer cake: vanilla sponge, cream and strawberry cream, chocolate glaze, rosette + strawberry on top
+  // sponge crumb: warm base with pores (colour + bump), shared by every cake slice
+  const pores = Array.from({ length: 5200 }, () => [rnd(0, 512), rnd(0, 512), rnd(0.8, 3.2), rnd(0.55, 1), rnd(0, 3), Math.random()]);
+  const crumb = (base, dark, light, srgb = true) => {
+    const t = canvasTex(512, 512, (g, w, h) => {
+      g.fillStyle = base; g.fillRect(0, 0, w, h);
+      pores.forEach(([x, y, r, s, a, k]) => { g.fillStyle = k < 0.72 ? dark(k) : light(k); g.beginPath(); g.ellipse(x, y, r, r * s, a, 0, 6.28); g.fill(); });
+    }, srgb);
+    t.wrapS = t.wrapT = T.RepeatWrapping; return t;
+  };
+  const crumbTex = crumb('#efc987', k => `rgba(176,112,48,${0.2 + k * 0.45})`, k => `rgba(255,240,205,${k * 0.45})`);
+  const crumbBump = crumb('#9a9a9a', k => `rgba(30,30,30,${0.4 + k * 0.5})`, k => `rgba(230,230,230,${k * 0.5})`, false);
+  const crustTex = crumb('#cf9350', k => `rgba(120,66,22,${0.25 + k * 0.45})`, k => `rgba(246,205,150,${k * 0.4})`);
+  crumbTex.repeat.set(0.7, 0.7); crumbBump.repeat.set(0.7, 0.7); crustTex.repeat.set(1.4, 0.3);
+  const SM = {
+    sponge: new T.MeshStandardMaterial({ map: crumbTex, bumpMap: crumbBump, bumpScale: 0.025, roughness: 0.92 }),
+    crust: new T.MeshStandardMaterial({ map: crustTex, roughness: 0.85 }),
+    cream: phys({ color: 0xfbf2e4, roughness: 0.48, clearcoat: 0.2, clearcoatRoughness: 0.5 }),
+    pink: phys({ color: 0xf1a3b2, roughness: 0.45, clearcoat: 0.2, clearcoatRoughness: 0.5 }),
+    glaze: phys({ color: 0x2b1309, roughness: 0.1, clearcoat: 1, clearcoatRoughness: 0.05, envMapIntensity: 1.6 }),
+    gold: new T.MeshStandardMaterial({ color: 0xf3cb7c, metalness: 1, roughness: 0.3, side: T.DoubleSide }),
+  };
+  const rosetteGeo = (() => {
+    const pts = [];
+    for (let i = 0; i <= 26; i++) { const t = i / 26; pts.push([0.25 * Math.pow(1 - t, 0.7) * (t < 0.14 ? 0.86 + t : 1), 0.38 * t]); }
+    const geo = lathe(pts, 72), p = geo.attributes.position, v = new T.Vector3();
+    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); const th = Math.atan2(v.z, v.x), k = 1 + 0.17 * Math.cos(8 * (th + v.y * 4.2)); p.setXYZ(i, v.x * k, v.y, v.z * k); }
+    geo.computeVertexNormals(); return geo;
+  })();
+  // slice of layer cake: vanilla sponge, cream and strawberry cream, chocolate glaze, piped rosette + strawberry + gold leaf
   function cakeSlice() {
     const g = new T.Group();
     const R = 1.6, A = Math.PI / 4.6;
     const shape = new T.Shape();
     shape.moveTo(0, 0); shape.absarc(0, 0, R, -A / 2, A / 2, false); shape.lineTo(0, 0);
-    const sponge = new T.MeshStandardMaterial({ color: 0xe3b46e, roughness: 0.92, bumpMap: noiseTex(1, 128, 190), bumpScale: 0.035 });
-    const cream = phys({ color: 0xfbf1e2, roughness: 0.55, clearcoat: 0.2 });
-    const pink = phys({ color: 0xeea3b0, roughness: 0.5, clearcoat: 0.2 });
-    const glaze = phys({ color: 0x3a1a0d, roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.08 });
     let y = 0;
-    [[0.34, sponge], [0.1, cream], [0.3, sponge], [0.1, pink], [0.3, sponge], [0.09, glaze]].forEach(([h, mat]) => {
-      const geo = new T.ExtrudeGeometry(shape, { depth: h, bevelEnabled: true, bevelThickness: 0.012, bevelSize: 0.012, bevelSegments: 2, curveSegments: 36 });
-      const m = new T.Mesh(geo, mat); m.rotation.x = -Math.PI / 2; m.position.y = y; g.add(m); y += h + 0.004;
+    [[0.34, 's'], [0.1, SM.cream], [0.3, 's'], [0.1, SM.pink], [0.3, 's'], [0.09, SM.glaze]].forEach(([h, mat]) => {
+      const sp = mat === 's', bev = sp ? 0.006 : 0.03;
+      const geo = new T.ExtrudeGeometry(shape, { depth: Math.max(0.001, h - 2 * bev), bevelEnabled: true, bevelThickness: bev, bevelSize: bev, bevelSegments: 3, curveSegments: 36 });
+      const m = new T.Mesh(geo, sp ? SM.sponge : mat); m.rotation.x = -Math.PI / 2; m.position.y = y + bev; g.add(m);
+      if (sp) { // baked outer wall along the arc
+        const w = new T.Mesh(new T.CylinderGeometry(R + 0.004, R + 0.004, h - 0.01, 36, 1, true, Math.PI / 2 - A / 2, A), SM.crust);
+        w.position.y = y + h / 2; g.add(w);
+      }
+      y += h + 0.004;
     });
-    const rosette = new T.Mesh(lathe([[0, 0], [0.2, 0], [0.19, 0.1], [0.12, 0.2], [0.04, 0.3], [0, 0.33]], 10), cream);
-    rosette.position.set(R * 0.8, y, 0); g.add(rosette);
-    const berry = strawberry(); berry.scale.setScalar(0.42); berry.position.set(R * 0.8, y + 0.36, 0); berry.rotation.z = 0.3; g.add(berry);
-    const choc = new T.Mesh(roundedBox(0.34, 0.2, 0.03, 0.01, 2), M.choc); choc.position.set(R * 0.52, y + 0.1, 0.04); choc.rotation.set(0.2, 0.4, 0.3); g.add(choc);
+    const rosette = new T.Mesh(rosetteGeo, SM.cream); rosette.scale.setScalar(1.1); rosette.position.set(R * 0.78, y, 0); g.add(rosette);
+    const berry = strawberry(); berry.scale.setScalar(0.4); berry.position.set(R * 0.78, y + 0.4, 0); berry.rotation.z = 0.3; g.add(berry);
+    const choc = new T.Mesh(roundedBox(0.34, 0.2, 0.03, 0.01, 2), SM.glaze); choc.position.set(R * 0.48, y + 0.1, 0.04); choc.rotation.set(0.2, 0.4, 0.3); g.add(choc);
+    const leafGeo = new T.PlaneGeometry(0.16, 0.13, 4, 4), lp = leafGeo.attributes.position;
+    for (let i = 0; i < lp.count; i++) lp.setZ(i, rnd(-0.015, 0.015));
+    leafGeo.computeVertexNormals();
+    [[R * 0.62, 0.02, 0.15], [R * 0.34, 0.01, -0.08], [R * 0.9, 0.62, 0.08]].forEach(([x, dy, z]) => { const l = new T.Mesh(leafGeo, SM.gold); l.position.set(x, y + dy + 0.01, z); l.rotation.set(-1.35, 0, rnd(0, 6)); g.add(l); });
     g.children.forEach(m => { m.position.x -= R * 0.55; m.position.y -= y / 2; });
     return g;
   }
@@ -333,9 +367,9 @@ window.initFloat3D = function ({ section, stage, fine, reduce, scene: which = 'm
      [builder, x, y (stage units, stage width = 4 units, y up), z, scale, spin] */
   const sets = which === 'hero' ? {
     hero: [
-      [coffeeCup, 0, -0.1, 0, 1.55, 0], [bean, -1.9, 1.5, 1.2, 0.34, 1], [bean, 1.8, 1.8, -0.6, 0.4, 1], [bean, 2.1, -1.3, 1.6, 0.3, 1],
-      [bean, -1.6, -1.8, 0.8, 0.38, 1], [bean, 0.3, 2.3, -2, 0.26, 1], [bean, -2.5, 0.2, -1.5, 0.24, 1], [bean, 2.6, 0.5, -2.5, 0.22, 1],
-      [bean, 0.9, -2.3, 1.2, 0.3, 1], [sugar, -1.0, 1.9, 0.4, 0.3, 0.5], [sugar, 1.4, -2.0, -1.2, 0.26, 0.5]
+      [cakeSlice, 0.05, -0.15, 0, 1.45, 0], [strawberry, -1.75, 1.35, 1.2, 0.5, 0.5], [strawberry, 1.65, -1.35, 1.0, 0.4, 0.5], [strawberry, 1.1, 1.95, -1.6, 0.28, 0.5],
+      [bean, 1.8, 1.0, -0.6, 0.26, 1], [bean, -1.7, -1.35, 0.8, 0.28, 1], [bean, 2.1, 0.1, -2.2, 0.2, 1], [bean, -2.1, 0.3, -2.2, 0.18, 1],
+      [() => macaron(0xe9a3ae, 0xfbe3e6), -1.95, -0.2, -1.2, 0.36, 0.5], [chocolate, -0.7, 1.95, -1.8, 0.3, 0.5]
     ]
   } : {
     kafa: [

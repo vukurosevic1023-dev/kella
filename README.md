@@ -19,7 +19,10 @@ pa radi i bez ostalih fajlova (internet je potreban samo za fontove i Google map
 ## Sadržaj
 - index.html — gotov sajt (jedan fajl, spreman za hosting)
 - source.html — izvorni kod za izmene
-- assets/js/ — GSAP, ScrollTrigger, Lenis, Three.js, 3D predmeti u meniju (menu3d.js: šolja, parče torte, jagode, makaronsi, kroasan, limunada…), efekat talasa na početnom ekranu (hero-gl.js)
+- assets/js/ — GSAP, ScrollTrigger, Lenis, Three.js
+  - menu3d.js — 3D predmeti u meniju i lebdeće parče torte na početnom ekranu
+  - anatomy3d.js — „Anatomija torte": 3D torta na stalku koja se pri skrolovanju rastavlja sloj po sloj
+  - hero-gl.js — efekat talasa na fotografiji početnog ekrana
 - assets/img/ — fotografije (Unsplash)
 
 ## Napomene
